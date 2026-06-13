@@ -6,7 +6,7 @@
 // CONSTANTS
 // TODO: NEED TO BE REPLACED BY DEFINES
 const int BannerFontSize = 32;
-const int gameFPS = 8;
+const int gameFPS = 16;
 const int windowBorder = 32;
 
 // GAMESTATE
@@ -52,7 +52,7 @@ int main(void){
 		if (GAMESTATE == LOADING_GAME) {
 		  ClearBackground(BLACK);
 			DrawBanner("LOADING, PLEASE WAIT",width,height);
-			if (loadingGameCounter>=gameFPS*1){
+			if (loadingGameCounter>=gameFPS*.25){
 				GAMESTATE = MAIN_MENU;
 			};
 			loadingGameCounter += 1;
