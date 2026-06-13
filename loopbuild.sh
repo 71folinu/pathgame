@@ -4,9 +4,10 @@ echo 'printing current directory...'
 pwd
 while [ true ]; do
   echo ---------------------------------------------------------------------------------------------------
-  rm a.out
-  gcc -g -lraylib main.c -Werror -Wfatal-errors -Wpedantic --pedantic-errors -Wall -Wextra -Wformat -pedantic -Wimplicit
-  ./a.out
+  rm pathgame
+  make
+  ./pathgame
+  rm pathgame
   read
   echo ---------------------------------------------------------------------------------------------------
 done
