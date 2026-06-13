@@ -35,7 +35,7 @@ struct BUTTON mainMenuExitButton = {
 
 // FUNCTIONS
 
-// TODO: anchor the button to bottom edge of screen
+// just render button on screen, not make it clickable
 void renderButton(struct BUTTON button) {
   if (button.anchor == UL) {
     DrawRectangle(button.x - buttonRectBorder,
