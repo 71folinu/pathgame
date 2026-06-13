@@ -1,5 +1,4 @@
 // buttons.c
-// TEST
 
 // STRUCTURES
 struct BUTTON {
