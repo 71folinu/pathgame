@@ -45,6 +45,7 @@ int main(void){
     // MAIN MENU
     if (GAMESTATE == MAIN_MENU) {
 		  ClearBackground(DARKGRAY);
+      renderButton(mainMenuExitButton);
     };
 
     // LOADING GAME
