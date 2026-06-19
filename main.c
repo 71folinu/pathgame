@@ -17,8 +17,9 @@ const int windowBorder = 32;
 enum GAMESTATE_ENUM { LOADING_GAME, MAIN_MENU };
 int GAMESTATE = LOADING_GAME;
 
-// GLOBAL VARIBLES
+// COUNTERS
 int loadingGameCounter = 0;
+int mainMenuExitButtonCounter = 0;
 
 // DRAW A BANNER IN THE MIDDLE OF THE SCREEN
 // TODO: make it semitransparent
@@ -54,7 +55,13 @@ int main(void) {
       if (isButtonPressed(mainMenuExitButton)) {
 	mainMenuExitButton.fillColor = (Color){255,0,0,255};
 	strcpy(mainMenuExitButton.text, "FUCK YOU");
+	mainMenuExitButtonCounter = 0;
         //break;
+      };
+      mainMenuExitButtonCounter += 1;
+      if (mainMenuExitButtonCounter > gameFPS) {
+	mainMenuExitButton.fillColor = (Color){255,255,255,255};
+	strcpy(mainMenuExitButton.text, "EXIT GAME");
       };
     };
 
