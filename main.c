@@ -5,6 +5,7 @@
 #include <raylib.h>
 #include <stdbool.h>
 #include <stdio.h>
+#include <string.h>
 
 // CONSTANTS
 // TODO: NEED TO BE REPLACED BY DEFINES
@@ -50,6 +51,11 @@ int main(void) {
     if (GAMESTATE == MAIN_MENU) {
       ClearBackground(DARKGRAY);
       renderButton(mainMenuExitButton);
+      if (isButtonPressed(mainMenuExitButton)) {
+	mainMenuExitButton.fillColor = (Color){255,0,0,255};
+	strcpy(mainMenuExitButton.text, "FUCK YOU");
+        //break;
+      };
     };
 
     // LOADING GAME

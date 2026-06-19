@@ -6,7 +6,7 @@
 #include <stdbool.h>
 
 // CONSTANTS
-const int buttonRectBorder = 64;
+const int buttonRectBorder = 32;
 
 // STATIC STRUCT INSTANCES
 struct BUTTON mainMenuExitButton = {.x = 64,
