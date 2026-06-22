@@ -12,10 +12,9 @@ const int buttonRectBorder = 32;
 #include "buttoninstances.c"
 
 // FUNCTIONS
-
+// TODO: process (render and check)(in main loop) all buttons
 // check if mouse is hovering over a button
 bool isMouseOverButton(struct BUTTON button) {
-
   // setup for calculations
 	int x0 = 0;
 	int y0 = 0;
@@ -42,8 +41,7 @@ bool isMouseOverButton(struct BUTTON button) {
 		x1 = x0 + button.w + buttonRectBorder * 2;
 		y1 = y0 + button.h + buttonRectBorder * 2;
 	};
-
-  // boundary check
+	// boundary check
 	int mousex = GetMouseX();
 	int mousey = GetMouseY();
 	if (mousex > x0 && mousex < x1 && mousey > y0 && mousey < y1) {
