@@ -9,16 +9,18 @@ enum BUTTON_ANCHOR { UL, UR, LL, LR };
 
 // STRUCTURES
 struct BUTTON {
-  int x;
-  int y;
-  int w;
-  int h;
-  Color fillColor;
-  Color textColor;
-  char text[64];
-  int textFontSize;
-  bool pressed;
-  enum BUTTON_ANCHOR anchor;
+	int x;
+	int y;
+	int w;
+	int h;
+	Color fillColor;
+	Color textColor;
+	char text[64];
+	int textFontSize;
+	bool pressed;
+	enum BUTTON_ANCHOR anchor;
+	int counter;
+	bool wasPressed;
 };
 
 // STATIC STRUCT INSTANCES
