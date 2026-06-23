@@ -1,17 +1,12 @@
 // main.c
 
-// INCLUDES
+// HEADERS
 #include "buttons.h"
 #include <raylib.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <string.h>
-
-// CONSTANTS
-// TODO: NEED TO BE REPLACED BY DEFINES
-const int BannerFontSize = 32;
-const int appFPS = 16;
-const int windowBorder = 32;
+#include "constants.h"
 
 // APPSTATE
 enum APPSTATE_ENUM { LOADING_APP, MAIN_MENU };
@@ -48,27 +43,11 @@ int main(void) {
 	// DRAWLOOP
 	while (!WindowShouldClose()) {
 		BeginDrawing();
-
 		// MAIN MENU
 		if (APPSTATE == MAIN_MENU) {
 			ClearBackground(DARKGRAY);
-			renderButton(mainMenuExitButton);
-			if (isButtonPressed(mainMenuExitButton)) {
-				mainMenuExitButton.fillColor = (Color){255,0,0,255};
-				strcpy(mainMenuExitButton.text, "FUCK YOU");
-				mainMenuExitButton.counter = 0;
-				mainMenuExitButton.wasPressed = true;
-			};
-			mainMenuExitButton.counter += 1;
-			if (mainMenuExitButton.counter > appFPS) {
-				if (mainMenuExitButton.wasPressed==true) {
-					break;
-				};
-				mainMenuExitButton.fillColor = (Color){255,255,255,255};
-				strcpy(mainMenuExitButton.text, "EXIT APP");
-			};
+			processButtons();
 		};
-
 		// LOADING APP
 		if (APPSTATE == LOADING_APP) {
 			ClearBackground(BLACK);

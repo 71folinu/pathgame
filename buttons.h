@@ -32,3 +32,4 @@ bool isMouseOverButton(struct BUTTON button);
 // just render button on screen, not make it clickable
 void renderButton(struct BUTTON button);
 bool isButtonPressed(struct BUTTON button);
+void processButtons(void);

@@ -4,6 +4,8 @@
 #include "buttons.h"
 #include <raylib.h>
 #include <stdbool.h>
+#include <string.h>
+#include "constants.h"
 
 // CONSTANTS
 const int buttonRectBorder = 32;
@@ -12,7 +14,6 @@ const int buttonRectBorder = 32;
 #include "buttoninstances.c"
 
 // FUNCTIONS
-// TODO: process (render and check)(in main loop) all buttons
 // check if mouse is hovering over a button
 bool isMouseOverButton(struct BUTTON button) {
   // setup for calculations
@@ -109,4 +110,24 @@ bool isButtonPressed(struct BUTTON button) {
 	} else {
 		return false;
 	};
+}
+
+// TODO: process (render and check)(in main loop) all buttons
+void processButtons(void) {
+		// mainMenuExitButton
+		renderButton(mainMenuExitButton);
+		if (isButtonPressed(mainMenuExitButton)) {
+			mainMenuExitButton.fillColor = (Color){255,0,0,255};
+			strcpy(mainMenuExitButton.text, "FUCK YOU");
+			mainMenuExitButton.counter = 0;
+			mainMenuExitButton.wasPressed = true;
+		};
+		mainMenuExitButton.counter += 1;
+		if (mainMenuExitButton.counter > appFPS) {
+			if (mainMenuExitButton.wasPressed==true) {
+				;
+			};
+			mainMenuExitButton.fillColor = (Color){255,255,255,255};
+			strcpy(mainMenuExitButton.text, "EXIT APP");
+		};
 }
