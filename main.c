@@ -16,7 +16,7 @@ const int buttonRectBorder = 32;
 
 // APPSTATE
 enum APPSTATE_ENUM { CLOSING, LOADING_APP, MAIN_MENU };
-int APPSTATE = LOADING_APP;
+enum APPSTATE_ENUM APPSTATE = LOADING_APP;
 
 // STRUCTURES
 struct BUTTON {
@@ -24,6 +24,8 @@ struct BUTTON {
 	int y;
 	int w;
 	int h;
+	Color defaultFillColor;
+	Color pressedFillColor;
 	Color fillColor;
 	Color textColor;
 	char text[64];
@@ -32,6 +34,7 @@ struct BUTTON {
 	enum BUTTON_ANCHOR anchor;
 	int counter;
 	bool wasPressed;
+	enum APPSTATE_ENUM needsAppstate;
 };
 
 // STATIC STRUCT INSTANCES
@@ -39,6 +42,8 @@ struct BUTTON mainMenuExitButton = {	.x = 64,
 					.y = 64,
 					.w = 128,
 					.h = 16,
+					.defaultFillColor = {255,255,255,255},
+					.pressedFillColor = {255,0,0,255},
 					.fillColor = {255, 255, 255, 255},
 					.textColor = {0, 0, 0, 255},
 					.text = "EXIT APP",
@@ -47,6 +52,7 @@ struct BUTTON mainMenuExitButton = {	.x = 64,
 					.anchor = LR,
 					.counter = 0,
 					.wasPressed = false,
+					.needsAppstate = MAIN_MENU
 };
 
 bool isMouseOverButton(struct BUTTON button) {
@@ -148,20 +154,23 @@ bool isButtonPressed(struct BUTTON button) {
 
 void processButtons(void) {
 		// mainMenuExitButton
-		renderButton(mainMenuExitButton);
-		if (isButtonPressed(mainMenuExitButton)) {
-			mainMenuExitButton.fillColor = (Color){255,0,0,255};
-			strcpy(mainMenuExitButton.text, "FUCK YOU");
-			mainMenuExitButton.counter = 0;
-			mainMenuExitButton.wasPressed = true;
-		};
-		mainMenuExitButton.counter += 1;
-		if (mainMenuExitButton.counter > appFPS/2) {
-			if (mainMenuExitButton.wasPressed==true) {
-				APPSTATE = CLOSING;
+		if (APPSTATE == mainMenuExitButton.needsAppstate) {
+			renderButton(mainMenuExitButton);
+			if (isButtonPressed(mainMenuExitButton)) {
+				mainMenuExitButton.fillColor = mainMenuExitButton.pressedFillColor;
+				strcpy(mainMenuExitButton.text, "FUCK YOU");
+				mainMenuExitButton.counter = 0;
+				mainMenuExitButton.wasPressed = true;
 			};
-			mainMenuExitButton.fillColor = (Color){255,255,255,255};
-			strcpy(mainMenuExitButton.text, "EXIT APP");
+			mainMenuExitButton.counter += 1;
+			if (mainMenuExitButton.counter > appFPS/2) {
+				if (mainMenuExitButton.wasPressed==true) {
+					//APPSTATE = CLOSING;
+					;
+				};
+				mainMenuExitButton.fillColor = mainMenuExitButton.defaultFillColor;
+				strcpy(mainMenuExitButton.text, "EXIT APP");
+			};
 		};
 }
 
@@ -181,7 +190,6 @@ void DrawBanner(char text[], int width, int height) {
 	DrawText(text, posx, posy, BannerFontSize, WHITE);
 }
 
-// ENTRYPOINT
 int main(void) {
 	// WINDOW SETUP
 	printf("ENTERED MAIN\n");
@@ -195,9 +203,9 @@ int main(void) {
 	// DRAWLOOP
 	while (APPSTATE != CLOSING) {
 		BeginDrawing();
+		processButtons();
 		if (APPSTATE == MAIN_MENU) {
 			ClearBackground(DARKGRAY);
-			processButtons();
 		};
 		if (APPSTATE == LOADING_APP) {
 			ClearBackground(BLACK);
