@@ -209,8 +209,9 @@ void processButtons(void) {
 		};
 }
 
-// MISC
+// GLOBAL VARS
 int loadingAppCounter = 0;
+int clickCounter = 0;
 
 // DRAW A BANNER IN THE MIDDLE OF THE SCREEN
 // TODO: make it semitransparent
@@ -228,7 +229,7 @@ void DrawBanner(char text[], int width, int height) {
 int main(void) {
 	// WINDOW SETUP
 	printf("ENTERED MAIN\n");
-	InitWindow(1, 1, "PATHAPP");
+	InitWindow(1, 1, "App");
 	SetTargetFPS(appFPS);
 	const int width = GetMonitorWidth(0) - windowBorder;
 	const int height = GetMonitorHeight(0) - windowBorder;
@@ -239,6 +240,10 @@ int main(void) {
 	while (APPSTATE != CLOSING) {
 		BeginDrawing();
 		if (APPSTATE == PLANET) {
+			if (IsMouseButtonPressed(0)) {
+				++clickCounter;
+				printf("mouse button clicked in PLANET %i times\n", clickCounter);
+			};
 			ClearBackground((Color){16,16,16,255});
 
 			DrawCircle(width/2, height/2, 24, YELLOW);		// SUN
