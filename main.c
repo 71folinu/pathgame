@@ -12,10 +12,10 @@ enum BUTTON_ANCHOR { UL, UR, LL, LR };
 const int BannerFontSize = 32;
 const int appFPS = 16;
 const int windowBorder = 32;
-const int buttonRectBorder = 32;
+const int buttonRectBorder = 8;
 
 // APPSTATE
-enum APPSTATE_ENUM { CLOSING, LOADING_APP, MAIN_MENU };
+enum APPSTATE_ENUM { CLOSING, LOADING_APP, MAIN_MENU, PLANET };
 enum APPSTATE_ENUM APPSTATE = LOADING_APP;
 
 // STRUCTURES
@@ -46,10 +46,26 @@ struct BUTTON mainMenuExitButton = {	.x = 64,
 					.pressedFillColor = {255,0,0,255},
 					.fillColor = {255, 255, 255, 255},
 					.textColor = {0, 0, 0, 255},
-					.text = "EXIT APP",
+					.text = "exit app",
 					.textFontSize = 24,
 					.pressed = false,
 					.anchor = LR,
+					.counter = 0,
+					.wasPressed = false,
+					.needsAppstate = MAIN_MENU
+};
+struct BUTTON planetButton = {		.x = 16,
+					.y = 16,
+					.w = 16,
+					.h = 16,
+					.defaultFillColor = { 85, 85, 85, 255 },
+					.pressedFillColor = { 255, 255, 255, 255 } ,
+					.fillColor = { 85, 85, 85, 255 },
+					.textColor = { 85, 85, 85, 255 },
+					.text = "",
+					.textFontSize = 4,
+					.pressed = false,
+					.anchor = LL,
 					.counter = 0,
 					.wasPressed = false,
 					.needsAppstate = MAIN_MENU
@@ -165,11 +181,28 @@ void processButtons(void) {
 			mainMenuExitButton.counter += 1;
 			if (mainMenuExitButton.counter > appFPS/2) {
 				if (mainMenuExitButton.wasPressed==true) {
-					//APPSTATE = CLOSING;
+					// APPSTATE = CLOSING;
 					;
 				};
 				mainMenuExitButton.fillColor = mainMenuExitButton.defaultFillColor;
-				strcpy(mainMenuExitButton.text, "EXIT APP");
+				strcpy(mainMenuExitButton.text, "exit app");
+			};
+		};
+		// planetButton
+		if (APPSTATE == planetButton.needsAppstate) {
+			renderButton(planetButton);
+			if (isButtonPressed(planetButton)) {
+				planetButton.fillColor = planetButton.pressedFillColor;
+				planetButton.counter = 0;
+				planetButton.wasPressed = true;
+			}
+			planetButton.counter += 1;
+			if (planetButton.counter > appFPS/2) {
+				if (planetButton.wasPressed==true) {
+					APPSTATE = PLANET;
+					;
+				};
+				planetButton.fillColor = planetButton.defaultFillColor;
 			};
 		};
 }
@@ -203,6 +236,11 @@ int main(void) {
 	// DRAWLOOP
 	while (APPSTATE != CLOSING) {
 		BeginDrawing();
+		if (APPSTATE == PLANET) {
+			ClearBackground((Color){32,32,32,255});
+			;
+			;
+		};
 		processButtons();
 		if (APPSTATE == MAIN_MENU) {
 			ClearBackground(DARKGRAY);
