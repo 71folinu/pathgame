@@ -7,16 +7,18 @@ enum BUTTON_ANCHOR { UL, UR, LL, LR };
 #include <stdbool.h>
 #include <stdio.h>
 #include <string.h>
+#include <math.h>
 
 // CONSTANTS
 const int BannerFontSize = 32;
-const int appFPS = 16;
+const int appFPS = 32;
 const int windowBorder = 32;
 const int buttonRectBorder = 8;
 
 // APPSTATE
 enum APPSTATE_ENUM { CLOSING, LOADING_APP, MAIN_MENU, PLANET };
-enum APPSTATE_ENUM APPSTATE = LOADING_APP;
+//enum APPSTATE_ENUM APPSTATE = LOADING_APP;
+enum APPSTATE_ENUM APPSTATE = PLANET;
 
 // STRUCTURES
 struct BUTTON {
@@ -237,9 +239,65 @@ int main(void) {
 	while (APPSTATE != CLOSING) {
 		BeginDrawing();
 		if (APPSTATE == PLANET) {
-			ClearBackground((Color){32,32,32,255});
-			;
-			;
+			ClearBackground((Color){16,16,16,255});
+
+			DrawCircle(width/2, height/2, 24, YELLOW);		// SUN
+
+			DrawCircle(						// MERCURY
+				(width/2)+(48*sin(GetTime()*1.1 + 3)),		// x
+				(height/2)+(48*cos(GetTime()*1.1 + 3)),		// y
+				4,
+				WHITE
+			);
+
+			DrawCircle(						// VENUS
+				(width/2)+(64*sin(GetTime()*1.0 + 12)),		// x
+				(height/2)+(64*cos(GetTime()*1.0 + 12)),	// y
+				6,
+				(Color){255,100,15,255}
+			);
+
+			DrawCircle(						// EARTH
+				(width/2)+(80*sin(GetTime()*0.9 + 1)),		// x
+				(height/2)+(80*cos(GetTime()*0.9 + 1)),		// y
+				7,
+				(Color){15,70,255,255}
+			);
+
+			DrawCircle(						// MARS
+				(width/2)+(96*sin(GetTime()*0.8 + 42)),		// x
+				(height/2)+(96*cos(GetTime()*0.8 + 42)),	// y
+				7,
+				(Color){250,50,10,255}
+			);
+
+			DrawCircle(						// JUPITER
+				(width/2)+(128*sin(GetTime()*0.7 + 23)),	// x
+				(height/2)+(128*cos(GetTime()*0.7 + 23)),	// y
+				13,
+				(Color){250,200,35,255}
+			);
+
+			DrawCircle(						// SATURN
+				(width/2)+(160*sin(GetTime()*0.6 + 7)),		// x
+				(height/2)+(160*cos(GetTime()*0.6 + 7)),	// y
+				13,
+				(Color){250,200,135,255}
+			);
+
+			DrawCircle(						// URANUS
+				(width/2)+(192*sin(GetTime()*0.5 + 86)),	// x
+				(height/2)+(192*cos(GetTime()*0.5 + 86)),	// y
+				6,
+				(Color){90,190,255,255}
+			);
+
+			DrawCircle(						// NEPTUNE
+				(width/2)+(208*sin(GetTime()*0.4 + 13)),	// x
+				(height/2)+(208*cos(GetTime()*0.4 + 13)),	// y
+				7,
+				(Color){0,110,255,255}
+			);
 		};
 		processButtons();
 		if (APPSTATE == MAIN_MENU) {
