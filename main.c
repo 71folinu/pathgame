@@ -250,6 +250,16 @@ int main(void) {
 			};
 			ClearBackground((Color){16,16,16,255});
 
+			// TRAJECTORIES
+			DrawCircle(width/2, height/2, 97, (Color){32,32,32,255});
+			DrawCircle(width/2, height/2, 96, (Color){16,16,16,255});
+			DrawCircle(width/2, height/2, 81, (Color){32,32,32,255});
+			DrawCircle(width/2, height/2, 80, (Color){16,16,16,255});
+			DrawCircle(width/2, height/2, 65, (Color){32,32,32,255});
+			DrawCircle(width/2, height/2, 64, (Color){16,16,16,255});
+			DrawCircle(width/2, height/2, 49, (Color){32,32,32,255});
+			DrawCircle(width/2, height/2, 48, (Color){16,16,16,255});
+
 			DrawCircle(width/2, height/2, 24, YELLOW);		// SUN
 			if (clickCounter > 9) {
 				DrawTextEx(
