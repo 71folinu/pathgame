@@ -51,6 +51,23 @@ struct BUTTON planetButton = {		.x = 16,
 					.needsAppstate = MAIN_MENU
 };
 
+struct BUTTON physicsTestButton = {	.x = 16,
+					.y = 16,
+					.w = 128,
+					.h = 16,
+					.defaultFillColor = { 127, 127, 127, 255 },
+					.pressedFillColor = { 187, 187, 187, 255 } ,
+					.fillColor = { 127, 127, 127, 255 },
+					.textColor = { 85, 85, 85, 255 },
+					.text = "physics test",
+					.textFontSize = 16,
+					.pressed = false,
+					.anchor = UL,
+					.counter = 0,
+					.wasPressed = false,
+					.needsAppstate = MAIN_MENU
+};
+
 bool isMouseOverButton(struct BUTTON button) {
 	int x0 = 0;
 	int y0 = 0;
@@ -177,6 +194,22 @@ void processButtons(void) {
 					;
 				};
 				planetButton.fillColor = planetButton.defaultFillColor;
+			};
+		};
+		if (APPSTATE == physicsTestButton.needsAppstate) {
+			renderButton(physicsTestButton);
+			if (isButtonPressed(physicsTestButton)) {
+				physicsTestButton.fillColor = physicsTestButton.pressedFillColor;
+				physicsTestButton.counter = 0;
+				physicsTestButton.wasPressed = true;
+			}
+			physicsTestButton.counter += 1;
+			if (physicsTestButton.counter > appFPS/2) {
+				if (physicsTestButton.wasPressed==true) {
+					APPSTATE = PHYSICS_TEST;
+					;
+				};
+				physicsTestButton.fillColor = physicsTestButton.defaultFillColor;
 			};
 		};
 }
