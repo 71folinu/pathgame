@@ -251,6 +251,14 @@ int main(void) {
 			ClearBackground((Color){16,16,16,255});
 
 			// TRAJECTORIES
+			DrawCircle(width/2, height/2, 225, (Color){32,32,32,255});
+			DrawCircle(width/2, height/2, 224, (Color){16,16,16,255});
+			DrawCircle(width/2, height/2, 193, (Color){32,32,32,255});
+			DrawCircle(width/2, height/2, 192, (Color){16,16,16,255});
+			DrawCircle(width/2, height/2, 161, (Color){32,32,32,255});
+			DrawCircle(width/2, height/2, 160, (Color){16,16,16,255});
+			DrawCircle(width/2, height/2, 129, (Color){32,32,32,255});
+			DrawCircle(width/2, height/2, 128, (Color){16,16,16,255});
 			DrawCircle(width/2, height/2, 97, (Color){32,32,32,255});
 			DrawCircle(width/2, height/2, 96, (Color){16,16,16,255});
 			DrawCircle(width/2, height/2, 81, (Color){32,32,32,255});
@@ -408,8 +416,8 @@ int main(void) {
 			};
 
 			DrawCircle(						// NEPTUNE
-				(width/2)+(208*sin(GetTime()*0.4 + 13)),	// x
-				(height/2)+(208*cos(GetTime()*0.4 + 13)),	// y
+				(width/2)+(224*sin(GetTime()*0.4 + 13)),	// x
+				(height/2)+(224*cos(GetTime()*0.4 + 13)),	// y
 				7,
 				(Color){0,110,255,255}
 			);
@@ -418,8 +426,8 @@ int main(void) {
 					rusFont,
 					"НЕПТУН",
 					(Vector2){
-					(width/2)+(208*sin(GetTime()*0.4 + 13))+9,
-					(height/2)+(208*cos(GetTime()*0.4 + 13))+9},
+					(width/2)+(224*sin(GetTime()*0.4 + 13))+9,
+					(height/2)+(224*cos(GetTime()*0.4 + 13))+9},
 					16,
 					1.0,
 					WHITE
