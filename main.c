@@ -1,5 +1,8 @@
 // main.c
 
+// TODO-s:
+// make em throwable (like physics)?
+
 enum BUTTON_ANCHOR { UL, UR, LL, LR };
 
 // HEADERS
@@ -17,8 +20,8 @@ const int buttonRectBorder = 8;
 
 // APPSTATE
 enum APPSTATE_ENUM { CLOSING, LOADING_APP, MAIN_MENU, PLANET };
-//enum APPSTATE_ENUM APPSTATE = LOADING_APP;
-enum APPSTATE_ENUM APPSTATE = PLANET;
+enum APPSTATE_ENUM APPSTATE = LOADING_APP;
+//enum APPSTATE_ENUM APPSTATE = PLANET;
 
 // STRUCTURES
 struct BUTTON {
