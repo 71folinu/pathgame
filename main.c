@@ -16,11 +16,12 @@ const int BannerFontSize = 32;
 const int appFPS = 40;
 const int windowBorder = 32;
 
-enum APPSTATE_ENUM { CLOSING, LOADING_APP, MAIN_MENU, PLANET, PHYSICS_TEST };
+enum APPSTATE_ENUM { CLOSING, LOADING_APP, MAIN_MENU, PLANET, PHYSICS_TEST, TRANSITION };
 enum APPSTATE_ENUM APPSTATE = LOADING_APP;
 
 int loadingAppCounter = 0;
 int clickCounter = 0;
+int transitionCounter = 0;
 
 #include "buttons.c"
 
@@ -70,6 +71,13 @@ int main(void) {
 			};
 			loadingAppCounter += 1;
 			printf("loadingAppCounter = %i\n", loadingAppCounter);
+		};
+		if (APPSTATE == TRANSITION) {
+			transitionCounter += 1;
+			if (transitionCounter > 1) {
+				transitionCounter = 0;
+				APPSTATE = MAIN_MENU;
+			};
 		};
 		EndDrawing();
 		// if (WindowShouldClose()) APPSTATE = CLOSING;
