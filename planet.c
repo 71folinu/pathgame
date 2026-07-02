@@ -1,4 +1,5 @@
 		if (APPSTATE == PLANET) {
+			if (IsKeyPressed(KEY_ESCAPE)) APPSTATE = LOADING_APP;
 			if (IsMouseButtonPressed(0)) {
 				++clickCounter;
 				printf("mouse button clicked in PLANET %i times\n", clickCounter);

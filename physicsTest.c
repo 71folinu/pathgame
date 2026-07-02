@@ -1,4 +1,5 @@
 		if (APPSTATE == PHYSICS_TEST) {
+			if (IsKeyPressed(KEY_ESCAPE)) APPSTATE = LOADING_APP;
 			if (IsMouseButtonDown(0)) {
 				physics_test_airDrag = 0.90;
 				physics_test_ballXV += 0.05*(GetMouseX() - physics_test_ballX);

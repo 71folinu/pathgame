@@ -174,6 +174,7 @@ void processButtons(void) {
 			mainMenuExitButton.counter += 1;
 			if (mainMenuExitButton.counter > appFPS/2) {
 				if (mainMenuExitButton.wasPressed==true) {
+					mainMenuExitButton.wasPressed = false;
 					APPSTATE = CLOSING;
 				};
 				mainMenuExitButton.fillColor = mainMenuExitButton.defaultFillColor;
@@ -190,6 +191,7 @@ void processButtons(void) {
 			planetButton.counter += 1;
 			if (planetButton.counter > appFPS/2) {
 				if (planetButton.wasPressed==true) {
+					planetButton.wasPressed = false;
 					APPSTATE = PLANET;
 					;
 				};
@@ -206,6 +208,7 @@ void processButtons(void) {
 			physicsTestButton.counter += 1;
 			if (physicsTestButton.counter > appFPS/2) {
 				if (physicsTestButton.wasPressed==true) {
+					physicsTestButton.wasPressed = false;
 					APPSTATE = PHYSICS_TEST;
 					;
 				};

@@ -3,6 +3,7 @@
 // make em throwable (like physics)?
 // pathgame button in menu
 // make a new physics_test button
+// make esc quit to main menu if inside an appstate and quit if in menu
 
 enum BUTTON_ANCHOR { UL, UR, LL, LR };
 
@@ -59,18 +60,20 @@ int main(void) {
 		processButtons();
 		if (APPSTATE == MAIN_MENU) {
 			ClearBackground(DARKGRAY);
+			if (IsKeyPressed(KEY_ESCAPE)) APPSTATE = CLOSING;
 		};
 		if (APPSTATE == LOADING_APP) {
 			ClearBackground(BLACK);
 			DrawBanner("LOADING, PLEASE WAIT", width, height);
 			if (loadingAppCounter >= appFPS * .25) {
 				APPSTATE = MAIN_MENU;
+				loadingAppCounter = 0;
 			};
 			loadingAppCounter += 1;
 			printf("loadingAppCounter = %i\n", loadingAppCounter);
 		};
 		EndDrawing();
-		if (WindowShouldClose()) {APPSTATE = CLOSING;};
+		// if (WindowShouldClose()) APPSTATE = CLOSING;
 	};
 	CloseWindow();
 	return 0;
