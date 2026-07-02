@@ -2,7 +2,6 @@
 // split it into files by UNITY BUILD method
 // make em throwable (like physics)?
 // pathgame button in menu
-// physics test button in menu
 
 enum BUTTON_ANCHOR { UL, UR, LL, LR };
 
@@ -51,13 +50,20 @@ int main(void) {
 	float physics_test_ballX = width/2;
 	float physics_test_ballXV = 8;
 	float physics_test_ballY = height/2;
-	float physics_test_ballYV = 32;
+	float physics_test_ballYV = 8;
 	float physics_test_ballRadius = 32;
+	float physics_test_def_airDrag = 0.99;
 	float physics_test_airDrag = 0.99;
 	while (APPSTATE != CLOSING) {
 		BeginDrawing();
 		if (APPSTATE == PHYSICS_TEST) {
-			physics_test_ballYV += 1;
+			if (IsMouseButtonDown(0)) {
+				physics_test_airDrag = 0.90;
+				physics_test_ballXV += 0.05*(GetMouseX() - physics_test_ballX);
+				physics_test_ballYV += 0.05*(GetMouseY() - physics_test_ballY);
+			};
+			if (IsMouseButtonReleased(0)) physics_test_airDrag = physics_test_def_airDrag;
+			physics_test_ballYV += 1.5;
 			physics_test_ballY += physics_test_ballYV;
 			physics_test_ballX += physics_test_ballXV;
 			if (physics_test_ballY+physics_test_ballRadius > height) {
