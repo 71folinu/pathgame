@@ -65,7 +65,7 @@ int main(void) {
 		if (APPSTATE == LOADING_APP) {
 			ClearBackground(BLACK);
 			DrawBanner("LOADING, PLEASE WAIT", width, height);
-			if (loadingAppCounter >= appFPS * .25) {
+			if (loadingAppCounter >= appFPS * 1/8) {
 				APPSTATE = MAIN_MENU;
 				loadingAppCounter = 0;
 			};
