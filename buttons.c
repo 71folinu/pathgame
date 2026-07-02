@@ -67,6 +67,22 @@ struct BUTTON physicsTestButton = {	.x = 16,
 					.wasPressed = false,
 					.needsAppstate = MAIN_MENU
 };
+struct BUTTON pathgameButton = {	.x = 16,
+					.y = 64,
+					.w = 128,
+					.h = 16,
+					.defaultFillColor = { 127, 127, 127, 255 },
+					.pressedFillColor = { 187, 187, 187, 255 } ,
+					.fillColor = { 127, 127, 127, 255 },
+					.textColor = { 85, 85, 85, 255 },
+					.text = "pathgame wip",
+					.textFontSize = 16,
+					.pressed = false,
+					.anchor = UL,
+					.counter = 0,
+					.wasPressed = false,
+					.needsAppstate = MAIN_MENU
+};
 
 bool isMouseOverButton(struct BUTTON button) {
 	int x0 = 0;
@@ -213,6 +229,23 @@ void processButtons(void) {
 					;
 				};
 				physicsTestButton.fillColor = physicsTestButton.defaultFillColor;
+			};
+		};
+		if (APPSTATE == pathgameButton.needsAppstate) {
+			renderButton(pathgameButton);
+			if (isButtonPressed(pathgameButton)) {
+				pathgameButton.fillColor = pathgameButton.pressedFillColor;
+				pathgameButton.counter = 0;
+				pathgameButton.wasPressed = true;
+			}
+			pathgameButton.counter += 1;
+			if (pathgameButton.counter > appFPS/2) {
+				if (pathgameButton.wasPressed==true) {
+					pathgameButton.wasPressed = false;
+					APPSTATE = PATHGAME;
+					;
+				};
+				pathgameButton.fillColor = pathgameButton.defaultFillColor;
 			};
 		};
 }
