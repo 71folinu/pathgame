@@ -1,9 +1,8 @@
 // TODO-s:
 // split it into files by UNITY BUILD method
-// make em throwable (like physics)?
 // pathgame button in menu
 // make a new physics_test button
-// make esc quit to main menu if inside an appstate and quit if in menu
+// make the LOADING banner not flash when returning from appstate
 
 enum BUTTON_ANCHOR { UL, UR, LL, LR };
 
