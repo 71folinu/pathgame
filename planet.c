@@ -1,9 +1,4 @@
 		if (APPSTATE == PLANET) {
-			if (IsKeyPressed(KEY_ESCAPE)) APPSTATE = TRANSITION;
-			if (IsMouseButtonPressed(0)) {
-				++clickCounter;
-				printf("mouse button clicked in PLANET %i times\n", clickCounter);
-			};
 			ClearBackground((Color){16,16,16,255});
 
 			// TRAJECTORIES
@@ -188,5 +183,13 @@
 					1.0,
 					WHITE
 				);
+			};
+			if (IsKeyPressed(KEY_ESCAPE)) {
+				APPSTATE = TRANSITION;
+				clickCounter = 0;
+			};
+			if (IsMouseButtonPressed(0)) {
+				++clickCounter;
+				printf("mouse button clicked in PLANET %i times\n", clickCounter);
 			};
 		};

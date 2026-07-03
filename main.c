@@ -73,8 +73,8 @@ int main(void) {
 		if (APPSTATE == TRANSITION) {
 			transitionCounter += 1;
 			if (transitionCounter > 1) {
-				transitionCounter = 0;
 				APPSTATE = MAIN_MENU;
+				transitionCounter = 0;
 			};
 		};
 		EndDrawing();
