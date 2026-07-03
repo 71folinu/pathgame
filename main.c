@@ -1,27 +1,31 @@
 // TODO-s:
 // make a new physics_test button
 
-enum BUTTON_ANCHOR { UL, UR, LL, LR };
-
+// Inclusion of external libraries
 #include <raylib.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
 
+// Global constants
 const int BannerFontSize = 32;
 const int appFPS = 40;
 const int windowBorder = 32;
 
+// Global enums
+enum BUTTON_ANCHOR { UL, UR, LL, LR };
 enum APPSTATE_ENUM { CLOSING, LOADING_APP, MAIN_MENU, PLANET, PHYSICS_TEST, TRANSITION, PATHGAME };
 enum APPSTATE_ENUM APPSTATE = LOADING_APP;
 
+// Global appstate counters
 int loadingAppCounter = 0;
 int clickCounter = 0;
 int transitionCounter = 0;
 
 #include "buttons.c"
 
+// Draw banner in the middle of the screen. Used when loading for the first time
 void DrawBanner(char text[], int width, int height) {
 	int posx = width / 2 - MeasureText(text, BannerFontSize) / 2;
 	int posy = height / 2 - BannerFontSize / 2;
@@ -33,9 +37,12 @@ void DrawBanner(char text[], int width, int height) {
 	DrawText(text, posx, posy, BannerFontSize, WHITE);
 }
 
+// Entrypoint
 int main(void) {
 	printf("ENTERED MAIN\n");
 	InitWindow(1, 1, "App");
+
+	// Window setup
 	SetTargetFPS(appFPS);
 	const int width = GetMonitorWidth(0) - windowBorder;
 	const int height = GetMonitorHeight(0) - windowBorder;
@@ -43,7 +50,7 @@ int main(void) {
 	printf("GetMonitorHeight(0)-windowBorder = %i\n", height);
 	SetWindowSize(width, height);
 
-	// font setup for PLANET
+	// Font setup for PLANET
 	int codepoints[512] = { 0 };
 	for (int i = 0; i < 95; i++) codepoints[i] = 32 + i;
 	for (int i = 0; i < 255; i++) codepoints[96 + i] = 0x400 + i;
@@ -52,16 +59,23 @@ int main(void) {
 	#include "physicsTestVars.c"
 	while (APPSTATE != CLOSING) {
 		BeginDrawing();
+
+		// Pathgame
 		if (APPSTATE == PATHGAME) {
 			ClearBackground(DARKBLUE);
 		};
+
 		#include "physicsTest.c"
 		#include "planet.c"
 		processButtons();
+
+		// Main menu
 		if (APPSTATE == MAIN_MENU) {
 			ClearBackground(DARKGRAY);
 			if (IsKeyPressed(KEY_ESCAPE)) APPSTATE = CLOSING;
 		};
+
+		// Loading screen after launch
 		if (APPSTATE == LOADING_APP) {
 			ClearBackground(BLACK);
 			DrawBanner("LOADING, PLEASE WAIT", width, height);
@@ -72,6 +86,8 @@ int main(void) {
 			loadingAppCounter += 1;
 			printf("loadingAppCounter = %i\n", loadingAppCounter);
 		};
+
+		// Transition between a substate and main menu
 		if (APPSTATE == TRANSITION) {
 			transitionCounter += 1;
 			if (transitionCounter > 1) {
@@ -79,8 +95,8 @@ int main(void) {
 				transitionCounter = 0;
 			};
 		};
+
 		EndDrawing();
-		// if (WindowShouldClose()) APPSTATE = CLOSING;
 	};
 	CloseWindow();
 	return 0;
