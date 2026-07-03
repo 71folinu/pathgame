@@ -1,5 +1,4 @@
 // TODO-s:
-// pathgame button in menu
 // make a new physics_test button
 
 enum BUTTON_ANCHOR { UL, UR, LL, LR };
@@ -53,6 +52,9 @@ int main(void) {
 	#include "physicsTestVars.c"
 	while (APPSTATE != CLOSING) {
 		BeginDrawing();
+		if (APPSTATE == PATHGAME) {
+			ClearBackground(DARKBLUE);
+		};
 		#include "physicsTest.c"
 		#include "planet.c"
 		processButtons();
