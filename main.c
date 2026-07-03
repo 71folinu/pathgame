@@ -52,9 +52,12 @@ int main(void) {
 
 	// Font setup for PLANET
 	int codepoints[512] = { 0 };
-	for (int i = 0; i < 95; i++) codepoints[i] = 32 + i;
-	for (int i = 0; i < 255; i++) codepoints[96 + i] = 0x400 + i;
+	for (int i = 0; i < 95; i++) codepoints[i] = 32 + i;		// The standard codepoints for english
+	for (int i = 0; i < 255; i++) codepoints[96 + i] = 0x400 + i;	// Codepoints for russian
 	Font rusFont = LoadFontEx("font.ttf",12,codepoints,512);
+
+	// Setup for pathgame
+	Camera3D playerCamera =  { 0 };
 
 	#include "physicsTestVars.c"
 	while (APPSTATE != CLOSING) {
@@ -62,7 +65,11 @@ int main(void) {
 
 		// Pathgame
 		if (APPSTATE == PATHGAME) {
-			ClearBackground(DARKBLUE);
+			if (IsKeyPressed(KEY_ESCAPE)) APPSTATE = TRANSITION;
+			ClearBackground((Color){0,0,31,255});
+			BeginMode3D(playerCamera);
+				;
+			EndMode3D();
 		};
 
 		#include "physicsTest.c"
