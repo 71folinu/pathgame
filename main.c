@@ -3,6 +3,7 @@
 
 // Inclusion of external libraries
 #include <raylib.h>
+#include <raymath.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <string.h>
@@ -16,7 +17,8 @@ const int windowBorder = 32;
 // Global enums
 enum BUTTON_ANCHOR { UL, UR, LL, LR };
 enum APPSTATE_ENUM { CLOSING, LOADING_APP, MAIN_MENU, PLANET, PHYSICS_TEST, TRANSITION, PATHGAME };
-enum APPSTATE_ENUM APPSTATE = LOADING_APP;
+// enum APPSTATE_ENUM APPSTATE = LOADING_APP;
+enum APPSTATE_ENUM APPSTATE = PATHGAME;
 
 // Global appstate counters
 int loadingAppCounter = 0;
@@ -58,8 +60,8 @@ int main(void) {
 
 	// Setup for pathgame
 	Camera3D playerCamera =  { 0 };
-	playerCamera.position = (Vector3){ 0.0f, 0.0f, 0.0f };  // Camera position
-	playerCamera.target = (Vector3){ 1.0f, 0.0f, 0.0f };      // Camera looking at point
+	playerCamera.position = (Vector3){ 0.0f, 1.7f, 0.0f };    // Camera position
+	playerCamera.target = (Vector3){ 1.0f, 1.7f, 0.0f };      // Camera looking at point
 	playerCamera.up = (Vector3){ 0.0f, 1.0f, 0.0f };          // Camera up vector (rotation towards target)
 	playerCamera.fovy = 60.0f;                                // Camera field-of-view Y
 	playerCamera.projection = CAMERA_PERSPECTIVE;             // Camera mode type
@@ -71,9 +73,16 @@ int main(void) {
 		// Pathgame
 		if (APPSTATE == PATHGAME) {
 			if (IsKeyPressed(KEY_ESCAPE)) APPSTATE = TRANSITION;
+			if (IsKeyDown(KEY_W)) {
+				playerCamera.position.x += 0.05;
+				playerCamera.target = Vector3Add(playerCamera.position,(Vector3){ 1.0f, 0.0f, 0.0f });
+				printf("playerCamera.position.x is now %f\n",playerCamera.position.x);
+				printf("W pressed\n");
+			};
 			ClearBackground((Color){0,0,31,255});
 			BeginMode3D(playerCamera);
-				;
+				DrawCube((Vector3){0,-0.01,0},32,0.01,32,DARKGREEN);
+				DrawGrid(32,1);
 			EndMode3D();
 		};
 
