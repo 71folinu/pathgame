@@ -12,6 +12,7 @@
 // 	but there is no infinite path?
 // 	do i really need it tho?
 // 	do i need the teleportation at all?
+// 	but then i need some sort of a wall around the player or some fog so the player cant see too far ahead
 //
 // replace the ground and path cubes with planes
 
