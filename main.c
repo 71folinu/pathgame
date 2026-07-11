@@ -65,11 +65,11 @@ int main(void) {
 	float playerRotationSpeed = 1;
 	float playerHeight = 1.7;
 	Camera3D playerCamera =  { 0 };
-	playerCamera.position = (Vector3){ 0.0f, playerHeight, 0.0f };    // Camera position
-	playerCamera.target = (Vector3){ 1.0f, 1.7f, 0.0f };      // Camera looking at point
-	playerCamera.up = (Vector3){ 0.0f, 1.0f, 0.0f };          // Camera up vector (rotation towards target)
-	playerCamera.fovy = 60.0f;                                // Camera field-of-view Y
-	playerCamera.projection = CAMERA_PERSPECTIVE;             // Camera mode type
+	playerCamera.position = (Vector3){ 0.0f, playerHeight, 0.0f };	// Camera position
+	playerCamera.target = (Vector3){ 1.0f, 1.7f, 0.0f };		// Camera looking at point
+	playerCamera.up = (Vector3){ 0.0f, 1.0f, 0.0f };		// Camera up vector (rotation towards target)
+	playerCamera.fovy = 60.0f;					// Camera field-of-view Y
+	playerCamera.projection = CAMERA_PERSPECTIVE;			// Camera mode type
 
 	#include "physicsTestVars.c"
 	while (APPSTATE != CLOSING) {
