@@ -60,7 +60,6 @@ int main(void) {
 
 	// Setup for pathgame
 	float playerSpeed = 0.1;
-	// bool mouseGrabbed = false;
 	float playerRotation = 90;
 	float playerRotationSpeed = 1;
 	float playerHeight = 1.7;
@@ -78,6 +77,8 @@ int main(void) {
 		// Pathgame
 		if (APPSTATE == PATHGAME) {
 			if (IsKeyPressed(KEY_ESCAPE)) APPSTATE = TRANSITION;
+
+			// Player movement processing
 			if (IsKeyDown(KEY_W)) {
 				playerCamera.position.x += sin(playerRotation*DEG2RAD)*playerSpeed;
 				playerCamera.position.z += cos(playerRotation*DEG2RAD)*playerSpeed;
@@ -94,17 +95,18 @@ int main(void) {
 				playerCamera.position.z -= sin(playerRotation*DEG2RAD)*playerSpeed;
 				playerCamera.position.x += cos(playerRotation*DEG2RAD)*playerSpeed;
 			};
+
+			// Player rotation processing
 			if (IsKeyDown(KEY_H)) playerRotation += playerRotationSpeed;
 			if (IsKeyDown(KEY_L)) playerRotation -= playerRotationSpeed;
-			// playerCamera.target = Vector3Add(playerCamera.position,(Vector3){ 1.0f, 0.0f, 0.0f });
 			playerCamera.target = (Vector3) {	playerCamera.position.x+sin(playerRotation*DEG2RAD),
 								playerHeight,
 								playerCamera.position.z+cos(playerRotation*DEG2RAD)};
-			// printf("playerRotation is %f\n",playerRotation);
+
 			ClearBackground((Color){0,0,31,255});
 			BeginMode3D(playerCamera);
-				DrawCube((Vector3){0,-0.01,0},32,0.01,32,DARKGREEN);
-				DrawGrid(32,1);
+				DrawCube((Vector3){0,-0.01,0},32,0.01,32,DARKGREEN);	// Ground
+				DrawGrid(32,1);						// Grid for debug
 			EndMode3D();
 		};
 
