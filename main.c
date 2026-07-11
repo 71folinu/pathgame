@@ -2,14 +2,16 @@
 // make a new physics_test button
 //
 // the method of the pathgame is:
-// 	teleport the player back
-// 	teleport all the models back with the player
-// 	maybe with some sort of an offset, just increase the offset every time the player is teleported back
+// 	teleport the player back,
+// 	teleport all the models back with the player,
+// 	maybe with some sort of an offset (
+// 	just increase the offset every time the player is teleported back),
 // 	profit? the models are there from the start and until the end???
 // 	and nothing to spawn or despawn???
 // 	what?????
 // 	but there is no infinite path?
 // 	do i really need it tho?
+// 	do i need the teleportation at all?
 //
 // replace the ground and path cubes with planes
 
