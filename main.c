@@ -78,10 +78,22 @@ int main(void) {
 		// Pathgame
 		if (APPSTATE == PATHGAME) {
 			if (IsKeyPressed(KEY_ESCAPE)) APPSTATE = TRANSITION;
-			if (IsKeyDown(KEY_W)) playerCamera.position.x += playerSpeed;
-			if (IsKeyDown(KEY_S)) playerCamera.position.x -= playerSpeed;
-			if (IsKeyDown(KEY_D)) playerCamera.position.z += playerSpeed;
-			if (IsKeyDown(KEY_A)) playerCamera.position.z -= playerSpeed;
+			if (IsKeyDown(KEY_W)) {
+				playerCamera.position.x += sin(playerRotation*DEG2RAD)*playerSpeed;
+				playerCamera.position.z += cos(playerRotation*DEG2RAD)*playerSpeed;
+			};
+			if (IsKeyDown(KEY_S)) {
+				playerCamera.position.x -= sin(playerRotation*DEG2RAD)*playerSpeed;
+				playerCamera.position.z -= cos(playerRotation*DEG2RAD)*playerSpeed;
+			};
+			if (IsKeyDown(KEY_D)) {
+				playerCamera.position.z += sin(playerRotation*DEG2RAD)*playerSpeed;
+				playerCamera.position.x -= cos(playerRotation*DEG2RAD)*playerSpeed;
+			};
+			if (IsKeyDown(KEY_A)) {
+				playerCamera.position.z -= sin(playerRotation*DEG2RAD)*playerSpeed;
+				playerCamera.position.x += cos(playerRotation*DEG2RAD)*playerSpeed;
+			};
 			if (IsKeyDown(KEY_H)) playerRotation += playerRotationSpeed;
 			if (IsKeyDown(KEY_L)) playerRotation -= playerRotationSpeed;
 			// playerCamera.target = Vector3Add(playerCamera.position,(Vector3){ 1.0f, 0.0f, 0.0f });
