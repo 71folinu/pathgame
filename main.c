@@ -59,8 +59,13 @@ int main(void) {
 	Font rusFont = LoadFontEx("font.ttf",12,codepoints,512);
 
 	// Setup for pathgame
+	float playerSpeed = 0.1;
+	// bool mouseGrabbed = false;
+	float playerRotation = 90;
+	float playerRotationSpeed = 1;
+	float playerHeight = 1.7;
 	Camera3D playerCamera =  { 0 };
-	playerCamera.position = (Vector3){ 0.0f, 1.7f, 0.0f };    // Camera position
+	playerCamera.position = (Vector3){ 0.0f, playerHeight, 0.0f };    // Camera position
 	playerCamera.target = (Vector3){ 1.0f, 1.7f, 0.0f };      // Camera looking at point
 	playerCamera.up = (Vector3){ 0.0f, 1.0f, 0.0f };          // Camera up vector (rotation towards target)
 	playerCamera.fovy = 60.0f;                                // Camera field-of-view Y
@@ -73,12 +78,17 @@ int main(void) {
 		// Pathgame
 		if (APPSTATE == PATHGAME) {
 			if (IsKeyPressed(KEY_ESCAPE)) APPSTATE = TRANSITION;
-			if (IsKeyDown(KEY_W)) {
-				playerCamera.position.x += 0.05;
-				playerCamera.target = Vector3Add(playerCamera.position,(Vector3){ 1.0f, 0.0f, 0.0f });
-				printf("playerCamera.position.x is now %f\n",playerCamera.position.x);
-				printf("W pressed\n");
-			};
+			if (IsKeyDown(KEY_W)) playerCamera.position.x += playerSpeed;
+			if (IsKeyDown(KEY_S)) playerCamera.position.x -= playerSpeed;
+			if (IsKeyDown(KEY_D)) playerCamera.position.z += playerSpeed;
+			if (IsKeyDown(KEY_A)) playerCamera.position.z -= playerSpeed;
+			if (IsKeyDown(KEY_H)) playerRotation += playerRotationSpeed;
+			if (IsKeyDown(KEY_L)) playerRotation -= playerRotationSpeed;
+			// playerCamera.target = Vector3Add(playerCamera.position,(Vector3){ 1.0f, 0.0f, 0.0f });
+			playerCamera.target = (Vector3) {	playerCamera.position.x+sin(playerRotation*DEG2RAD),
+								playerHeight,
+								playerCamera.position.z+cos(playerRotation*DEG2RAD)};
+			// printf("playerRotation is %f\n",playerRotation);
 			ClearBackground((Color){0,0,31,255});
 			BeginMode3D(playerCamera);
 				DrawCube((Vector3){0,-0.01,0},32,0.01,32,DARKGREEN);
