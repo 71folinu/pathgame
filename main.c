@@ -63,6 +63,7 @@ int main(void) {
 	float playerRotation = 90;
 	float playerRotationSpeed = 1;
 	float playerHeight = 1.7;
+	float renderDist = 64;
 	Camera3D playerCamera =  { 0 };
 	playerCamera.position = (Vector3){ 0.0f, playerHeight, 0.0f };	// Camera position
 	playerCamera.target = (Vector3){ 1.0f, 1.7f, 0.0f };		// Camera looking at point
@@ -76,6 +77,7 @@ int main(void) {
 
 		// Pathgame
 		if (APPSTATE == PATHGAME) {
+			if (playerCamera.position.x > 8) playerCamera.position.x -= 16;
 			if (IsKeyPressed(KEY_ESCAPE)) APPSTATE = TRANSITION;
 
 			// Player movement processing
@@ -105,8 +107,9 @@ int main(void) {
 
 			ClearBackground((Color){0,0,31,255});
 			BeginMode3D(playerCamera);
-				DrawCube((Vector3){0,-0.01,0},32,0.01,32,DARKGREEN);	// Ground
-				DrawGrid(32,1);						// Grid for debug
+				DrawCube((Vector3){0,-0.01,0},renderDist,0.01,renderDist,DARKGREEN);		// Ground
+				DrawCube((Vector3){0,0,0},renderDist,0.01,2.0,(Color){ 40, 40, 40, 255 });	// Path
+				// DrawGrid(renderDist,1);								// Grid for debug
 			EndMode3D();
 		};
 
