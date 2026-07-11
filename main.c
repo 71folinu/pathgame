@@ -1,5 +1,17 @@
 // TODO-s:
 // make a new physics_test button
+//
+// the method of the pathgame is:
+// 	teleport the player back
+// 	teleport all the models back with the player
+// 	maybe with some sort of an offset, just increase the offset every time the player is teleported back
+// 	profit? the models are there from the start and until the end???
+// 	and nothing to spawn or despawn???
+// 	what?????
+// 	but there is no infinite path?
+// 	do i really need it tho?
+//
+// replace the ground and path cubes with planes
 
 // Inclusion of external libraries
 #include <raylib.h>
@@ -109,7 +121,7 @@ int main(void) {
 			BeginMode3D(playerCamera);
 				DrawCube((Vector3){0,-0.01,0},renderDist,0.01,renderDist,DARKGREEN);		// Ground
 				DrawCube((Vector3){0,0,0},renderDist,0.01,2.0,(Color){ 40, 40, 40, 255 });	// Path
-				// DrawGrid(renderDist,1);								// Grid for debug
+				// DrawGrid(renderDist,1);							// Grid for debug
 			EndMode3D();
 		};
 
