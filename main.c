@@ -1,20 +1,5 @@
 // TODO-s:
 // make a new physics_test button
-//
-// the method of the pathgame is:
-// 	teleport the player back,
-// 	teleport all the models back with the player,
-// 	maybe with some sort of an offset (
-// 	just increase the offset every time the player is teleported back),
-// 	profit? the models are there from the start and until the end???
-// 	and nothing to spawn or despawn???
-// 	what?????
-// 	but there is no infinite path?
-// 	do i really need it tho?
-// 	do i need the teleportation at all?
-// 	but then i need some sort of a wall around the player or some fog so the player cant see too far ahead
-//
-// replace the ground and path cubes with planes
 
 // Inclusion of external libraries
 #include <raylib.h>
@@ -74,11 +59,11 @@ int main(void) {
 	Font rusFont = LoadFontEx("font.ttf",12,codepoints,512);
 
 	// Setup for pathgame
-	float playerSpeed = 0.1;
+	float playerSpeed = 0.2;
 	float playerRotation = 90;
-	float playerRotationSpeed = 1;
+	float playerRotationSpeed = 2;
 	float playerHeight = 1.7;
-	float renderDist = 64;
+	float renderDist = 512;
 	Camera3D playerCamera =  { 0 };
 	playerCamera.position = (Vector3){ 0.0f, playerHeight, 0.0f };	// Camera position
 	playerCamera.target = (Vector3){ 1.0f, 1.7f, 0.0f };		// Camera looking at point
@@ -92,7 +77,6 @@ int main(void) {
 
 		// Pathgame
 		if (APPSTATE == PATHGAME) {
-			if (playerCamera.position.x > 8) playerCamera.position.x -= 16;
 			if (IsKeyPressed(KEY_ESCAPE)) APPSTATE = TRANSITION;
 
 			// Player movement processing
