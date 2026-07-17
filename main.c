@@ -122,7 +122,7 @@ int main(void) {
 
 			ClearBackground((Color){0,0,31,255});
 			BeginMode3D(playerCamera);
-				DrawCube((Vector3){0,-0.01,0},renderDist,0.01,renderDist,DARKGREEN);		// Ground
+				DrawPlane((Vector3){0,-0.01,0},(Vector2){renderDist,renderDist},DARKGREEN);	// Ground
 				DrawCube((Vector3){0,0,0},renderDist,0.01,2.0,(Color){ 40, 40, 40, 255 });	// Path
 				// DrawGrid(renderDist,1);							// Grid for debug
 			EndMode3D();
