@@ -17,8 +17,8 @@ const int windowBorder = 32;
 // Global enums
 enum BUTTON_ANCHOR { UL, UR, LL, LR };
 enum APPSTATE_ENUM { CLOSING, LOADING_APP, MAIN_MENU, PLANET, PHYSICS_TEST, TRANSITION, PATHGAME };
-// enum APPSTATE_ENUM APPSTATE = LOADING_APP;
-enum APPSTATE_ENUM APPSTATE = PATHGAME;
+enum APPSTATE_ENUM APPSTATE = LOADING_APP;
+// enum APPSTATE_ENUM APPSTATE = PATHGAME;
 
 // Global appstate counters
 int loadingAppCounter = 0;
@@ -98,8 +98,8 @@ int main(void) {
 			};
 
 			// Player rotation processing
-			if (IsKeyDown(KEY_H)) playerRotation += playerRotationSpeed;
-			if (IsKeyDown(KEY_L)) playerRotation -= playerRotationSpeed;
+			if (IsKeyDown(KEY_H) || IsKeyDown(KEY_LEFT)) playerRotation += playerRotationSpeed;
+			if (IsKeyDown(KEY_L) || IsKeyDown(KEY_RIGHT)) playerRotation -= playerRotationSpeed;
 			playerCamera.target = (Vector3) {	playerCamera.position.x+sin(playerRotation*DEG2RAD),
 								playerHeight,
 								playerCamera.position.z+cos(playerRotation*DEG2RAD)};
