@@ -1,5 +1,7 @@
 // TODO-s:
 // make a new physics_test button
+// make a stamina bar
+// make path going backwards a dirt path
 
 // Inclusion of external libraries
 #include <raylib.h>
@@ -86,15 +88,15 @@ void DrawStreetlight(Vector3 BasePos) {
 	);
 	// Lit area of the path
 	DrawTriangle3D(
-		(Vector3){-0.8,0.011,-0.24},
-		(Vector3){6.8,0.011,-0.24},
-		(Vector3){-0.26,0.011,-1},
+		Vector3Add((Vector3){-3.8,0.011,-1.74},BasePos),
+		Vector3Add((Vector3){3.8,0.011,-1.74},BasePos),
+		Vector3Add((Vector3){-3.26,0.011,-2.5},BasePos),
 		LitPathColor
 	);
 	DrawTriangle3D(
-		(Vector3){6.8,0.011,-0.24},
-		(Vector3){6.26,0.011,-1.0},
-		(Vector3){-0.26,0.011,-1},
+		Vector3Add((Vector3){3.8,0.011,-1.74},BasePos),
+		Vector3Add((Vector3){3.26,0.011,-2.5},BasePos),
+		Vector3Add((Vector3){-3.26,0.011,-2.5},BasePos),
 		LitPathColor
 	);
 	DrawPlane(
@@ -124,13 +126,15 @@ int main(void) {
 	Font rusFont = LoadFontEx("font.ttf",12,codepoints,512);
 
 	// Setup for pathgame
-	float playerSpeed = 0.2;
+	float playerSpeed = 0.05;
+	float playerWalkSpeed = 0.05;
+	float playerRunSpeed = 2.15;
 	float playerRotation = 90;
 	float playerRotationSpeed = 2;
 	float playerHeight = 1.6;
-	float renderDist = 512;
+	float renderDist = 1024;
 	Camera3D playerCamera =  { 0 };
-	playerCamera.position = (Vector3){ -4.0f, playerHeight, 0.0f };	// Camera position
+	playerCamera.position = (Vector3){ 0.0f, playerHeight, 0.0f };	// Camera position
 	playerCamera.target = (Vector3){ 1.0f, 1.7f, 0.0f };		// Camera looking at point
 	playerCamera.up = (Vector3){ 0.0f, 1.0f, 0.0f };		// Camera up vector (rotation towards target)
 	playerCamera.fovy = 70.0f;					// Camera field-of-view Y
@@ -143,6 +147,12 @@ int main(void) {
 		// Pathgame
 		if (APPSTATE == PATHGAME) {
 			if (IsKeyPressed(KEY_ESCAPE)) APPSTATE = TRANSITION;
+
+			if (IsKeyDown(KEY_LEFT_SHIFT)) {
+				playerSpeed = playerRunSpeed;
+			} else {
+				playerSpeed = playerWalkSpeed;
+			};
 
 			// Player movement processing
 			if (IsKeyDown(KEY_W)) {
@@ -172,11 +182,13 @@ int main(void) {
 			ClearBackground((Color){0,0,31,255});
 			BeginMode3D(playerCamera);
 				// Ground
-				DrawPlane((Vector3){0,-0.01,0},(Vector2){renderDist,renderDist},(Color){20,40,10,255});
+				DrawPlane((Vector3){0,-0.01,0},(Vector2){renderDist,renderDist/8},(Color){20,40,10,255});
 				// Path
 				DrawCube((Vector3){0,0,0},renderDist,0.01,2.0,(Color){ 40, 40, 40, 255 });
-				// First streetlight
-				DrawStreetlight((Vector3){3,0,1.5});
+				// Streetlights
+				for (int i = 0; i < 52; i++) {
+					DrawStreetlight((Vector3){i*10-3,0,1.5});
+				};
 				// Grid for debug
 				// DrawGrid(renderDist,1);
 			EndMode3D();
