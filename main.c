@@ -17,8 +17,8 @@ const int windowBorder = 32;
 // Global enums
 enum BUTTON_ANCHOR { UL, UR, LL, LR };
 enum APPSTATE_ENUM { CLOSING, LOADING_APP, MAIN_MENU, PLANET, PHYSICS_TEST, TRANSITION, PATHGAME };
-enum APPSTATE_ENUM APPSTATE = LOADING_APP;
-// enum APPSTATE_ENUM APPSTATE = PATHGAME;
+// enum APPSTATE_ENUM APPSTATE = LOADING_APP;
+enum APPSTATE_ENUM APPSTATE = PATHGAME;
 
 // Global appstate counters
 int loadingAppCounter = 0;
@@ -37,6 +37,32 @@ void DrawBanner(char text[], int width, int height) {
 	BannerFontSize + 20,
 	DARKGRAY);
 	DrawText(text, posx, posy, BannerFontSize, WHITE);
+}
+
+// Draw streetlight
+void DrawStreetlight(Vector3 BasePos) {
+	Color StreetlightColor = (Color){40,40,50,255};
+	// Base
+	DrawCylinder(
+		BasePos,
+		0.1,
+		0.1,
+		4.0,
+		8,
+		StreetlightColor
+	);
+	// Light holder
+	DrawCubeV(
+		Vector3Add(BasePos,(Vector3){0,4.0,-0.3}),
+		(Vector3){0.3,0.1,0.9},
+		StreetlightColor
+	);
+	// Light itself
+	DrawCubeV(
+		Vector3Add(BasePos,(Vector3){0,3.9,-0.5}),
+		(Vector3){0.25,0.05,0.45},
+		YELLOW
+	);
 }
 
 // Entrypoint
@@ -106,9 +132,14 @@ int main(void) {
 
 			ClearBackground((Color){0,0,31,255});
 			BeginMode3D(playerCamera);
-				DrawPlane((Vector3){0,-0.01,0},(Vector2){renderDist,renderDist},DARKGREEN);	// Ground
-				DrawCube((Vector3){0,0,0},renderDist,0.01,2.0,(Color){ 40, 40, 40, 255 });	// Path
-				// DrawGrid(renderDist,1);							// Grid for debug
+				// Ground
+				DrawPlane((Vector3){0,-0.01,0},(Vector2){renderDist,renderDist},DARKGREEN);
+				// Path
+				DrawCube((Vector3){0,0,0},renderDist,0.01,2.0,(Color){ 40, 40, 40, 255 });
+				// First streetlight
+				DrawStreetlight((Vector3){3,0,1.5});
+				// Grid for debug
+				// DrawGrid(renderDist,1);
 			EndMode3D();
 		};
 
