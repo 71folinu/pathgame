@@ -42,16 +42,28 @@ void DrawBanner(char text[], int width, int height) {
 // Draw streetlight
 void DrawStreetlight(Vector3 BasePos) {
 	Color StreetlightColor = (Color){40,40,50,255};
+	Color LitStreetlightColor = (Color){70,80,70,255};
+	Color LitGroundColor = (Color){30,100,20,255};
+	Color LitPathColor = (Color){100,100,100,255};
 	// Base
 	DrawCylinder(
 		BasePos,
 		0.1,
 		0.1,
 		4.0,
-		8,
+		6,
 		StreetlightColor
 	);
-	// Light holder
+	// Lit base
+	DrawCylinder(
+		Vector3Add(BasePos,(Vector3){0,0,-0.02}),
+		0.11,
+		0.11,
+		4.0,
+		6,
+		LitStreetlightColor
+	);
+	// Light roof
 	DrawCubeV(
 		Vector3Add(BasePos,(Vector3){0,4.0,-0.3}),
 		(Vector3){0.3,0.1,0.9},
@@ -62,6 +74,33 @@ void DrawStreetlight(Vector3 BasePos) {
 		Vector3Add(BasePos,(Vector3){0,3.9,-0.5}),
 		(Vector3){0.25,0.05,0.45},
 		YELLOW
+	);
+	// Lit area of the ground
+	DrawCylinder(
+		Vector3Add(BasePos,(Vector3){0,0,-0.5}),
+		4.0,
+		4.0,
+		0.01,
+		10,
+		LitGroundColor
+	);
+	// Lit area of the path
+	DrawTriangle3D(
+		(Vector3){-0.8,0.011,-0.24},
+		(Vector3){6.8,0.011,-0.24},
+		(Vector3){-0.26,0.011,-1},
+		LitPathColor
+	);
+	DrawTriangle3D(
+		(Vector3){6.8,0.011,-0.24},
+		(Vector3){6.26,0.011,-1.0},
+		(Vector3){-0.26,0.011,-1},
+		LitPathColor
+	);
+	DrawPlane(
+		Vector3Add(BasePos,(Vector3){0,0.011,-1.125}),
+		(Vector2){7.61,1.25},
+		LitPathColor
 	);
 }
 
@@ -88,13 +127,13 @@ int main(void) {
 	float playerSpeed = 0.2;
 	float playerRotation = 90;
 	float playerRotationSpeed = 2;
-	float playerHeight = 1.7;
+	float playerHeight = 1.6;
 	float renderDist = 512;
 	Camera3D playerCamera =  { 0 };
-	playerCamera.position = (Vector3){ 0.0f, playerHeight, 0.0f };	// Camera position
+	playerCamera.position = (Vector3){ -4.0f, playerHeight, 0.0f };	// Camera position
 	playerCamera.target = (Vector3){ 1.0f, 1.7f, 0.0f };		// Camera looking at point
 	playerCamera.up = (Vector3){ 0.0f, 1.0f, 0.0f };		// Camera up vector (rotation towards target)
-	playerCamera.fovy = 60.0f;					// Camera field-of-view Y
+	playerCamera.fovy = 70.0f;					// Camera field-of-view Y
 	playerCamera.projection = CAMERA_PERSPECTIVE;			// Camera mode type
 
 	#include "physicsTestVars.c"
@@ -133,7 +172,7 @@ int main(void) {
 			ClearBackground((Color){0,0,31,255});
 			BeginMode3D(playerCamera);
 				// Ground
-				DrawPlane((Vector3){0,-0.01,0},(Vector2){renderDist,renderDist},DARKGREEN);
+				DrawPlane((Vector3){0,-0.01,0},(Vector2){renderDist,renderDist},(Color){20,40,10,255});
 				// Path
 				DrawCube((Vector3){0,0,0},renderDist,0.01,2.0,(Color){ 40, 40, 40, 255 });
 				// First streetlight
