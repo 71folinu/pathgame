@@ -1,5 +1,4 @@
 // TODO-s:
-// make a new physics_test button
 // make a stamina bar
 // make path going backwards a dirt path
 
@@ -127,12 +126,12 @@ int main(void) {
 
 	// Setup for pathgame
 	float playerSpeed = 0.05;
-	float playerWalkSpeed = 0.05;
-	float playerRunSpeed = 2.15;
+	float playerWalkSpeed = 0.1;
+	float playerRunSpeed = 3.1;
 	float playerRotation = 90;
 	float playerRotationSpeed = 2;
-	float playerHeight = 1.6;
-	float renderDist = 1024;
+	float playerHeight = 1.4;
+	float renderDist = 512;
 	Camera3D playerCamera =  { 0 };
 	playerCamera.position = (Vector3){ 0.0f, playerHeight, 0.0f };	// Camera position
 	playerCamera.target = (Vector3){ 1.0f, 1.7f, 0.0f };		// Camera looking at point
@@ -185,8 +184,10 @@ int main(void) {
 				DrawPlane((Vector3){0,-0.01,0},(Vector2){renderDist,renderDist/8},(Color){20,40,10,255});
 				// Path
 				DrawCube((Vector3){0,0,0},renderDist,0.01,2.0,(Color){ 40, 40, 40, 255 });
+
 				// Streetlights
-				for (int i = 0; i < 52; i++) {
+				for (int i = 0; i < 32-6; i++) {
+					if (i == 6) {continue;};
 					DrawStreetlight((Vector3){i*10-3,0,1.5});
 				};
 				// Grid for debug
