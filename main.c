@@ -138,7 +138,7 @@ int main(void) {
 	playerCamera.up = (Vector3){ 0.0f, 1.0f, 0.0f };		// Camera up vector (rotation towards target)
 	playerCamera.fovy = 70.0f;					// Camera field-of-view Y
 	playerCamera.projection = CAMERA_PERSPECTIVE;			// Camera mode type
-	Model PoleModel = LoadModel("pole.obj");
+	Model PoleModel = LoadModel("pole.glb");
 
 	#include "physicsTestVars.c"
 	while (APPSTATE != CLOSING) {
@@ -186,7 +186,7 @@ int main(void) {
 				// Path
 				DrawCube((Vector3){0,0,0},renderDist,0.01,2.0,(Color){ 40, 40, 40, 255 });
 
-				DrawModel(PoleModel,(Vector3){0,0,0},1.0,BLACK);
+				DrawModel(PoleModel,(Vector3){0,0,0},1.0,WHITE);
 
 				// Streetlights
 				for (int i = 0; i < 32-6; i++) {
