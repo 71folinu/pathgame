@@ -83,6 +83,22 @@ struct BUTTON pathgameButton = {	.x = 16,
 					.wasPressed = false,
 					.needsAppstate = MAIN_MENU
 };
+struct BUTTON SettingsButton = {	.x = 16,
+					.y = 16,
+					.w = 128,
+					.h = 16,
+					.defaultFillColor = { 127, 127, 127, 255 },
+					.pressedFillColor = { 187, 187, 187, 255 } ,
+					.fillColor = { 127, 127, 127, 255 },
+					.textColor = { 85, 85, 85, 255 },
+					.text = "SETTINGS",
+					.textFontSize = 16,
+					.pressed = false,
+					.anchor = UR,
+					.counter = 0,
+					.wasPressed = false,
+					.needsAppstate = MAIN_MENU
+};
 
 bool isMouseOverButton(struct BUTTON button) {
 	int x0 = 0;
@@ -246,6 +262,23 @@ void processButtons(void) {
 					;
 				};
 				pathgameButton.fillColor = pathgameButton.defaultFillColor;
+			};
+		};
+		if (APPSTATE == SettingsButton.needsAppstate) {
+			renderButton(SettingsButton);
+			if (isButtonPressed(SettingsButton)) {
+				SettingsButton.fillColor = SettingsButton.pressedFillColor;
+				SettingsButton.counter = 0;
+				SettingsButton.wasPressed = true;
+			}
+			SettingsButton.counter += 1;
+			if (SettingsButton.counter > appFPS/2) {
+				if (SettingsButton.wasPressed==true) {
+					SettingsButton.wasPressed = false;
+					APPSTATE = SETTINGS_SCREEN;
+					;
+				};
+				SettingsButton.fillColor = SettingsButton.defaultFillColor;
 			};
 		};
 }

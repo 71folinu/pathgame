@@ -1,7 +1,3 @@
-// TODO-s:
-// make a stamina bar
-// make path going backwards a dirt path
-
 // Inclusion of external libraries
 #include <raylib.h>
 #include <raymath.h>
@@ -17,7 +13,7 @@ const int windowBorder = 32;
 
 // Global enums
 enum BUTTON_ANCHOR { UL, UR, LL, LR };
-enum APPSTATE_ENUM { CLOSING, LOADING_APP, MAIN_MENU, PLANET, PHYSICS_TEST, TRANSITION, PATHGAME };
+enum APPSTATE_ENUM { CLOSING, LOADING_APP, MAIN_MENU, PLANET, PHYSICS_TEST, TRANSITION, PATHGAME, SETTINGS_SCREEN };
 // enum APPSTATE_ENUM APPSTATE = LOADING_APP;
 enum APPSTATE_ENUM APPSTATE = PATHGAME;
 
@@ -128,7 +124,7 @@ int main(void) {
 	bool EnableDrawFPS = true;
 	float playerSpeed = 0.05;
 	float playerWalkSpeed = 0.1;
-	float playerRunSpeed = 2.2;
+	float playerRunSpeed = 1.2;
 	float playerRotation = 90;
 	float playerRotationSpeed = 4;
 	float playerHeight = 1.4;
@@ -182,8 +178,11 @@ int main(void) {
 
 			ClearBackground((Color){0,0,31,255});
 			BeginMode3D(playerCamera);
+				// Simple player shadow
+				// Transparency works only with models, so cancelled for now
+				// DrawCylinder((Vector3){playerCamera.position.x,playerCamera.position.y-playerHeight+0.1,playerCamera.position.z}, 5.5, 5.5, 0.1, 9, (Color){0,0,0,31});
 				// Ground
-				DrawPlane((Vector3){0,-0.01,0},(Vector2){renderDist,renderDist/8},(Color){20,40,10,255});
+				DrawPlane((Vector3){0,-0.01,0},(Vector2){renderDist,renderDist/4},(Color){20,40,10,255});
 				// Path
 				DrawCube((Vector3){0,0,0},renderDist,0.01,2.0,(Color){ 40, 40, 40, 255 });
 				// Dirt path
@@ -200,8 +199,15 @@ int main(void) {
 				// Grid for debug
 				// DrawGrid(renderDist,1);
 			EndMode3D();
+			// Invisible walls
 			if (playerCamera.position.x < -renderDist/4) {
-				playerCamera.position.x += 1;
+				playerCamera.position.x += (playerWalkSpeed+playerRunSpeed)/2;
+			};
+			if (playerCamera.position.z < -renderDist/16) {
+				playerCamera.position.z += (playerWalkSpeed+playerRunSpeed)/2;
+			};
+			if (playerCamera.position.z > renderDist/16) {
+				playerCamera.position.z -= (playerWalkSpeed+playerRunSpeed)/2;
 			};
 			if (EnableDrawFPS) {
 				DrawFPS(10,10);
@@ -237,6 +243,12 @@ int main(void) {
 				APPSTATE = MAIN_MENU;
 				transitionCounter = 0;
 			};
+		};
+
+		// Settings screen
+		if (APPSTATE == SETTINGS_SCREEN) {
+			ClearBackground(DARKGRAY);
+			if (IsKeyPressed(KEY_ESCAPE)) APPSTATE = TRANSITION;
 		};
 
 		EndDrawing();
