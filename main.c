@@ -125,11 +125,12 @@ int main(void) {
 	Font rusFont = LoadFontEx("font.ttf",12,codepoints,512);
 
 	// Setup for pathgame
+	bool EnableDrawFPS = true;
 	float playerSpeed = 0.05;
 	float playerWalkSpeed = 0.1;
-	float playerRunSpeed = 3.1;
+	float playerRunSpeed = 2.2;
 	float playerRotation = 90;
-	float playerRotationSpeed = 2;
+	float playerRotationSpeed = 4;
 	float playerHeight = 1.4;
 	float renderDist = 512;
 	Camera3D playerCamera =  { 0 };
@@ -185,17 +186,26 @@ int main(void) {
 				DrawPlane((Vector3){0,-0.01,0},(Vector2){renderDist,renderDist/8},(Color){20,40,10,255});
 				// Path
 				DrawCube((Vector3){0,0,0},renderDist,0.01,2.0,(Color){ 40, 40, 40, 255 });
+				// Dirt path
+				DrawCube((Vector3){-renderDist/4,0,0},renderDist/2,0.02,3,(Color){ 40, 20, 20, 255 });
 
-				DrawModel(PoleModel,(Vector3){0,0,0},1.0,WHITE);
+				// Modelled pole
+				DrawModel(PoleModel,(Vector3){8,0,0},1.0,WHITE);
 
 				// Streetlights
 				for (int i = 0; i < 32-6; i++) {
 					if (i == 6) {continue;};
-					DrawStreetlight((Vector3){i*10-3,0,1.5});
+					DrawStreetlight((Vector3){i*10+16,0,1.5});
 				};
 				// Grid for debug
 				// DrawGrid(renderDist,1);
 			EndMode3D();
+			if (playerCamera.position.x < -renderDist/4) {
+				playerCamera.position.x += 1;
+			};
+			if (EnableDrawFPS) {
+				DrawFPS(10,10);
+			};
 		};
 
 		#include "physicsTest.c"
