@@ -6,6 +6,9 @@
 #include <string.h>
 #include <math.h>
 
+// Global variables
+bool playerFastRun = false;
+
 // Global constants
 const int BannerFontSize = 32;
 const int appFPS = 40;
@@ -15,7 +18,7 @@ const int windowBorder = 32;
 enum BUTTON_ANCHOR { UL, UR, LL, LR };
 enum APPSTATE_ENUM { CLOSING, LOADING_APP, MAIN_MENU, PLANET, PHYSICS_TEST, TRANSITION, PATHGAME, SETTINGS_SCREEN };
 // enum APPSTATE_ENUM APPSTATE = LOADING_APP;
-enum APPSTATE_ENUM APPSTATE = PATHGAME;
+enum APPSTATE_ENUM APPSTATE = SETTINGS_SCREEN;
 
 // Global appstate counters
 int loadingAppCounter = 0;
@@ -122,9 +125,9 @@ int main(void) {
 
 	// Setup for pathgame
 	bool EnableDrawFPS = true;
-	float playerSpeed = 0.05;
+	float playerSpeed = 0;
 	float playerWalkSpeed = 0.1;
-	float playerRunSpeed = 1.2;
+	float playerRunSpeed = 0.2;
 	float playerRotation = 90;
 	float playerRotationSpeed = 4;
 	float playerHeight = 1.4;
@@ -141,12 +144,29 @@ int main(void) {
 	while (APPSTATE != CLOSING) {
 		BeginDrawing();
 
+		// Settings screen
+		if (APPSTATE == SETTINGS_SCREEN) {
+			ClearBackground(DARKGRAY);
+			DrawText("SETTINGS", 20, 20, 32, WHITE);
+			DrawText(TextFormat("Current window width - %i",width), 20, 80, 24, WHITE);
+			DrawText(TextFormat("Current window height - %i",height), 20, 110, 24, WHITE);
+			if (playerFastRun) {
+				DrawText("ON",170,height-39,24,WHITE);
+			};
+			processButtons();
+			if (IsKeyPressed(KEY_ESCAPE)) APPSTATE = TRANSITION;
+		};
+
 		// Pathgame
 		if (APPSTATE == PATHGAME) {
 			if (IsKeyPressed(KEY_ESCAPE)) APPSTATE = TRANSITION;
 
 			if (IsKeyDown(KEY_LEFT_SHIFT)) {
-				playerSpeed = playerRunSpeed;
+				if (playerFastRun == true) {
+					playerSpeed = playerRunSpeed*5;
+				} else {
+					playerSpeed = playerRunSpeed;
+				};
 			} else {
 				playerSpeed = playerWalkSpeed;
 			};
@@ -216,11 +236,11 @@ int main(void) {
 
 		#include "physicsTest.c"
 		#include "planet.c"
-		processButtons();
 
 		// Main menu
 		if (APPSTATE == MAIN_MENU) {
 			ClearBackground(DARKGRAY);
+			processButtons();
 			if (IsKeyPressed(KEY_ESCAPE)) APPSTATE = CLOSING;
 		};
 
@@ -243,12 +263,6 @@ int main(void) {
 				APPSTATE = MAIN_MENU;
 				transitionCounter = 0;
 			};
-		};
-
-		// Settings screen
-		if (APPSTATE == SETTINGS_SCREEN) {
-			ClearBackground(DARKGRAY);
-			if (IsKeyPressed(KEY_ESCAPE)) APPSTATE = TRANSITION;
 		};
 
 		EndDrawing();

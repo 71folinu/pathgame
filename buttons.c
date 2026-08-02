@@ -1,4 +1,5 @@
 const int buttonRectBorder = 8;
+int FastRunSettingsButtonAppearCounter = 0;
 
 struct BUTTON {
 	int x;
@@ -98,6 +99,22 @@ struct BUTTON SettingsButton = {	.x = 16,
 					.counter = 0,
 					.wasPressed = false,
 					.needsAppstate = MAIN_MENU
+};
+struct BUTTON FastRunSettingsButton = {	.x = 20,
+					.y = 20,
+					.w = 128,
+					.h = 16,
+					.defaultFillColor = { 127, 127, 127, 255 },
+					.pressedFillColor = { 187, 187, 187, 255 } ,
+					.fillColor = { 127, 127, 127, 255 },
+					.textColor = { 85, 85, 85, 255 },
+					.text = "FAST RUN",
+					.textFontSize = 16,
+					.pressed = false,
+					.anchor = LL,
+					.counter = 0,
+					.wasPressed = false,
+					.needsAppstate = SETTINGS_SCREEN
 };
 
 bool isMouseOverButton(struct BUTTON button) {
@@ -274,11 +291,30 @@ void processButtons(void) {
 			SettingsButton.counter += 1;
 			if (SettingsButton.counter > appFPS/2) {
 				if (SettingsButton.wasPressed==true) {
+					FastRunSettingsButtonAppearCounter = 0;
 					SettingsButton.wasPressed = false;
 					APPSTATE = SETTINGS_SCREEN;
 					;
 				};
 				SettingsButton.fillColor = SettingsButton.defaultFillColor;
+			};
+		};
+		if (APPSTATE == FastRunSettingsButton.needsAppstate) {
+			if (FastRunSettingsButtonAppearCounter > 0) renderButton(FastRunSettingsButton);
+			FastRunSettingsButtonAppearCounter += 1;
+			if (isButtonPressed(FastRunSettingsButton)) {
+				FastRunSettingsButton.fillColor = FastRunSettingsButton.pressedFillColor;
+				FastRunSettingsButton.counter = 0;
+				FastRunSettingsButton.wasPressed = true;
+			}
+			FastRunSettingsButton.counter += 1;
+			if (FastRunSettingsButton.counter > appFPS/2) {
+				if (FastRunSettingsButton.wasPressed==true) {
+					FastRunSettingsButton.wasPressed = false;
+					playerFastRun = true;
+					;
+				};
+				FastRunSettingsButton.fillColor = FastRunSettingsButton.defaultFillColor;
 			};
 		};
 }
