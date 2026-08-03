@@ -8,6 +8,7 @@
 
 // Global variables
 bool playerFastRun = false;
+float ViewSensivity = 0.5;
 
 // Global constants
 const int BannerFontSize = 32;
@@ -129,7 +130,7 @@ int main(void) {
 	float playerWalkSpeed = 0.1;
 	float playerRunSpeed = 0.2;
 	float playerRotation = 90;
-	float playerRotationSpeed = 4;
+	float playerRotationSpeed = 8;
 	float playerHeight = 1.4;
 	float renderDist = 512;
 	Camera3D playerCamera =  { 0 };
@@ -190,8 +191,8 @@ int main(void) {
 			};
 
 			// Player rotation processing
-			if (IsKeyDown(KEY_H) || IsKeyDown(KEY_LEFT)) playerRotation += playerRotationSpeed;
-			if (IsKeyDown(KEY_L) || IsKeyDown(KEY_RIGHT)) playerRotation -= playerRotationSpeed;
+			if (IsKeyDown(KEY_H) || IsKeyDown(KEY_LEFT)) playerRotation += playerRotationSpeed*ViewSensivity;
+			if (IsKeyDown(KEY_L) || IsKeyDown(KEY_RIGHT)) playerRotation -= playerRotationSpeed*ViewSensivity;
 			playerCamera.target = (Vector3) {	playerCamera.position.x+sin(playerRotation*DEG2RAD),
 								playerHeight,
 								playerCamera.position.z+cos(playerRotation*DEG2RAD)};
