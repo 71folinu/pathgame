@@ -352,24 +352,24 @@ void processButtons(void) {
 				SettingsButton.fillColor = SettingsButton.defaultFillColor;
 			};
 		};
-		if (APPSTATE == FastRunSettingsButton.needsAppstate) {
-			if (FastRunSettingsButtonAppearCounter > 0) renderButton(FastRunSettingsButton);
-			FastRunSettingsButtonAppearCounter += 1;
-			if (isButtonPressed(FastRunSettingsButton)) {
-				FastRunSettingsButton.fillColor = FastRunSettingsButton.pressedFillColor;
-				FastRunSettingsButton.counter = 0;
-				FastRunSettingsButton.wasPressed = true;
-			}
-			FastRunSettingsButton.counter += 1;
-			if (FastRunSettingsButton.counter > appFPS/2) {
-				if (FastRunSettingsButton.wasPressed==true) {
-					FastRunSettingsButton.wasPressed = false;
-					playerFastRun = true;
-					;
-				};
-				FastRunSettingsButton.fillColor = FastRunSettingsButton.defaultFillColor;
-			};
-		};
+		// if (APPSTATE == FastRunSettingsButton.needsAppstate) {
+		// 	if (FastRunSettingsButtonAppearCounter > 0) renderButton(FastRunSettingsButton);
+		// 	FastRunSettingsButtonAppearCounter += 1;
+		// 	if (isButtonPressed(FastRunSettingsButton)) {
+		// 		FastRunSettingsButton.fillColor = FastRunSettingsButton.pressedFillColor;
+		// 		FastRunSettingsButton.counter = 0;
+		// 		FastRunSettingsButton.wasPressed = true;
+		// 	}
+		// 	FastRunSettingsButton.counter += 1;
+		// 	if (FastRunSettingsButton.counter > appFPS/2) {
+		// 		if (FastRunSettingsButton.wasPressed==true) {
+		// 			FastRunSettingsButton.wasPressed = false;
+		// 			playerFastRun = true;
+		// 			;
+		// 		};
+		// 		FastRunSettingsButton.fillColor = FastRunSettingsButton.defaultFillColor;
+		// 	};
+		// };
 		if (APPSTATE == SensivityDownSettingsButton.needsAppstate) {
 			if (SensivityDownSettingsButtonAppearCounter > 0) renderButton(SensivityDownSettingsButton);
 			SensivityDownSettingsButtonAppearCounter += 1;
@@ -433,8 +433,24 @@ void processSettingsScreenUpperText(void) {
 	DrawText(TextFormat("Current window height - %i",height), 20, 110, 24, WHITE);
 }
 
+void processSettingsScreenFastRunButton(void) {
+	renderButton(FastRunSettingsButton);
+	if (isButtonPressed(FastRunSettingsButton)) {
+		FastRunSettingsButton.fillColor = FastRunSettingsButton.pressedFillColor;
+		FastRunSettingsButton.counter = 0;
+		FastRunSettingsButton.wasPressed = true;
+	};
+	FastRunSettingsButton.counter += 1;
+	if (FastRunSettingsButton.counter > appFPS/2) {
+		if (FastRunSettingsButton.wasPressed==true) {
+			FastRunSettingsButton.wasPressed = false;
+			playerFastRun = true;
+		};
+		FastRunSettingsButton.fillColor = FastRunSettingsButton.defaultFillColor;
+	};
+}
 void processSettingsScreenButtons(void) {
 	processSettingsScreenUpperText();
-	// processSettingsScreenFastRunButton();
+	processSettingsScreenFastRunButton();
 	// processSettingsScreenSensivityControls();
 }
