@@ -408,20 +408,19 @@ void processSettingsScreenSensivityControls(void) {
 	};
 	renderButton(SensivitySettingsDisplayButton);
 	TextCopy(SensivitySettingsDisplayButton.text,TextFormat("%.0f%%",ViewSensivity*100));
-	// if (isButtonPressed(SensivitySettingsDisplayButton)) {
-	// 	SensivitySettingsDisplayButton.fillColor = SensivitySettingsDisplayButton.pressedFillColor;
-	// 	SensivitySettingsDisplayButton.counter = 0;
-	// 	SensivitySettingsDisplayButton.wasPressed = true;
-	// }
-	// SensivitySettingsDisplayButton.counter += 1;
-	// if (SensivitySettingsDisplayButton.counter > appFPS/8) {
-	// 	if (SensivitySettingsDisplayButton.wasPressed==true) {
-	// 		SensivitySettingsDisplayButton.wasPressed = false;
-	// 		ViewSensivity += 0.05;
-	// 		;
-	// 	};
-	// 	SensivitySettingsDisplayButton.fillColor = SensivitySettingsDisplayButton.defaultFillColor;
-	// };
+	if (isButtonPressed(SensivitySettingsDisplayButton)) {
+		SensivitySettingsDisplayButton.fillColor = SensivitySettingsDisplayButton.pressedFillColor;
+		SensivitySettingsDisplayButton.counter = 0;
+		SensivitySettingsDisplayButton.wasPressed = true;
+	}
+	SensivitySettingsDisplayButton.counter += 1;
+	if (SensivitySettingsDisplayButton.counter > appFPS/16) {
+		if (SensivitySettingsDisplayButton.wasPressed==true) {
+			SensivitySettingsDisplayButton.wasPressed = false;
+			ViewSensivity = 0.50;
+		};
+		SensivitySettingsDisplayButton.fillColor = SensivitySettingsDisplayButton.defaultFillColor;
+	};
 	int textposx = (SensivityUpSettingsButton.x + (SensivityUpSettingsButton.w / 2)) -
 	MeasureText(SensivityUpSettingsButton.text, SensivityUpSettingsButton.textFontSize) / 2;
 	int textposy = (SensivityUpSettingsButton.y + (SensivityUpSettingsButton.h / 2)) -
