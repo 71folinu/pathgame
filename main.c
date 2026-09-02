@@ -112,8 +112,8 @@ int main(void) {
 
 	// Window setup
 	SetTargetFPS(appFPS);
-	const int width = GetMonitorWidth(0) - windowBorder;
-	const int height = GetMonitorHeight(0) - windowBorder;
+	width = GetMonitorWidth(0) - windowBorder;
+	height = GetMonitorHeight(0) - windowBorder;
 	printf("GetMonitorWidth(0)-windowBorder = %i\n", width);
 	printf("GetMonitorHeight(0)-windowBorder = %i\n", height);
 	SetWindowSize(width, height);
@@ -148,13 +148,11 @@ int main(void) {
 		// Settings screen
 		if (APPSTATE == SETTINGS_SCREEN) {
 			ClearBackground(DARKGRAY);
-			DrawText("SETTINGS", 20, 20, 32, WHITE);
-			DrawText(TextFormat("Current window width - %i",width), 20, 80, 24, WHITE);
-			DrawText(TextFormat("Current window height - %i",height), 20, 110, 24, WHITE);
 			if (playerFastRun) {
 				DrawText("ON",170,height-39,24,WHITE);
 			};
-			processButtons();
+			// processButtons();
+			processSettingsScreenButtons();
 			if (IsKeyPressed(KEY_ESCAPE)) APPSTATE = TRANSITION;
 		};
 

@@ -1,3 +1,5 @@
+int width = 0;
+int height = 0;
 const int buttonRectBorder = 8;
 int FastRunSettingsButtonAppearCounter = 0;
 int SensivityDownSettingsButtonAppearCounter = 0;
@@ -423,4 +425,16 @@ void processButtons(void) {
 			// 	SensivitySettingsDisplayButton.fillColor = SensivitySettingsDisplayButton.defaultFillColor;
 			// };
 		};
+}
+
+void processSettingsScreenUpperText(void) {
+	DrawText("SETTINGS", 20, 20, 32, WHITE);
+	DrawText(TextFormat("Current window width - %i",width), 20, 80, 24, WHITE);
+	DrawText(TextFormat("Current window height - %i",height), 20, 110, 24, WHITE);
+}
+
+void processSettingsScreenButtons(void) {
+	processSettingsScreenUpperText();
+	// processSettingsScreenFastRunButton();
+	// processSettingsScreenSensivityControls();
 }
