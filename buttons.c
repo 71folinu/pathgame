@@ -2,9 +2,6 @@ int width = 0;
 int height = 0;
 const int buttonRectBorder = 8;
 int FastRunSettingsButtonAppearCounter = 0;
-int SensivityDownSettingsButtonAppearCounter = 0;
-int SensivitySettingsDisplayButtonAppearCounter = 0;
-int SensivityUpSettingsButtonAppearCounter = 0;
 
 struct BUTTON {
 	int x;
