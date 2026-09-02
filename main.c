@@ -153,7 +153,6 @@ int main(void) {
 			};
 			// processButtons();
 			processSettingsScreenButtons();
-			processSettingsScreenFastRunButton();
 			if (IsKeyPressed(KEY_ESCAPE)) APPSTATE = TRANSITION;
 		};
 

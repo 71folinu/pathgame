@@ -352,79 +352,6 @@ void processButtons(void) {
 				SettingsButton.fillColor = SettingsButton.defaultFillColor;
 			};
 		};
-		// if (APPSTATE == FastRunSettingsButton.needsAppstate) {
-		// 	if (FastRunSettingsButtonAppearCounter > 0) renderButton(FastRunSettingsButton);
-		// 	FastRunSettingsButtonAppearCounter += 1;
-		// 	if (isButtonPressed(FastRunSettingsButton)) {
-		// 		FastRunSettingsButton.fillColor = FastRunSettingsButton.pressedFillColor;
-		// 		FastRunSettingsButton.counter = 0;
-		// 		FastRunSettingsButton.wasPressed = true;
-		// 	}
-		// 	FastRunSettingsButton.counter += 1;
-		// 	if (FastRunSettingsButton.counter > appFPS/2) {
-		// 		if (FastRunSettingsButton.wasPressed==true) {
-		// 			FastRunSettingsButton.wasPressed = false;
-		// 			playerFastRun = true;
-		// 			;
-		// 		};
-		// 		FastRunSettingsButton.fillColor = FastRunSettingsButton.defaultFillColor;
-		// 	};
-		// };
-		if (APPSTATE == SensivityDownSettingsButton.needsAppstate) {
-			if (SensivityDownSettingsButtonAppearCounter > 0) renderButton(SensivityDownSettingsButton);
-			SensivityDownSettingsButtonAppearCounter += 1;
-			if (isButtonPressed(SensivityDownSettingsButton)) {
-				SensivityDownSettingsButton.fillColor = SensivityDownSettingsButton.pressedFillColor;
-				SensivityDownSettingsButton.counter = 0;
-				SensivityDownSettingsButton.wasPressed = true;
-			}
-			SensivityDownSettingsButton.counter += 1;
-			if (SensivityDownSettingsButton.counter > appFPS/8) {
-				if (SensivityDownSettingsButton.wasPressed==true) {
-					SensivityDownSettingsButton.wasPressed = false;
-					ViewSensivity -= 0.05;
-					;
-				};
-				SensivityDownSettingsButton.fillColor = SensivityDownSettingsButton.defaultFillColor;
-			};
-		};
-		if (APPSTATE == SensivityUpSettingsButton.needsAppstate) {
-			if (SensivityUpSettingsButtonAppearCounter > 0) renderButton(SensivityUpSettingsButton);
-			SensivityUpSettingsButtonAppearCounter += 1;
-			if (isButtonPressed(SensivityUpSettingsButton)) {
-				SensivityUpSettingsButton.fillColor = SensivityUpSettingsButton.pressedFillColor;
-				SensivityUpSettingsButton.counter = 0;
-				SensivityUpSettingsButton.wasPressed = true;
-			}
-			SensivityUpSettingsButton.counter += 1;
-			if (SensivityUpSettingsButton.counter > appFPS/8) {
-				if (SensivityUpSettingsButton.wasPressed==true) {
-					SensivityUpSettingsButton.wasPressed = false;
-					ViewSensivity += 0.05;
-					;
-				};
-				SensivityUpSettingsButton.fillColor = SensivityUpSettingsButton.defaultFillColor;
-			};
-		};
-		if (APPSTATE == SensivitySettingsDisplayButton.needsAppstate) {
-			if (SensivitySettingsDisplayButtonAppearCounter > 0) renderButton(SensivitySettingsDisplayButton);
-			SensivitySettingsDisplayButtonAppearCounter += 1;
-			TextCopy(SensivitySettingsDisplayButton.text,TextFormat("%.0f%%",ViewSensivity*100));
-			// if (isButtonPressed(SensivitySettingsDisplayButton)) {
-			// 	SensivitySettingsDisplayButton.fillColor = SensivitySettingsDisplayButton.pressedFillColor;
-			// 	SensivitySettingsDisplayButton.counter = 0;
-			// 	SensivitySettingsDisplayButton.wasPressed = true;
-			// }
-			// SensivitySettingsDisplayButton.counter += 1;
-			// if (SensivitySettingsDisplayButton.counter > appFPS/8) {
-			// 	if (SensivitySettingsDisplayButton.wasPressed==true) {
-			// 		SensivitySettingsDisplayButton.wasPressed = false;
-			// 		ViewSensivity += 0.05;
-			// 		;
-			// 	};
-			// 	SensivitySettingsDisplayButton.fillColor = SensivitySettingsDisplayButton.defaultFillColor;
-			// };
-		};
 }
 
 void processSettingsScreenUpperText(void) {
@@ -449,8 +376,65 @@ void processSettingsScreenFastRunButton(void) {
 		FastRunSettingsButton.fillColor = FastRunSettingsButton.defaultFillColor;
 	};
 }
+
+void processSettingsScreenSensivityControls(void) {
+	renderButton(SensivityDownSettingsButton);
+	if (isButtonPressed(SensivityDownSettingsButton)) {
+		SensivityDownSettingsButton.fillColor = SensivityDownSettingsButton.pressedFillColor;
+		SensivityDownSettingsButton.counter = 0;
+		SensivityDownSettingsButton.wasPressed = true;
+	}
+	SensivityDownSettingsButton.counter += 1;
+	if (SensivityDownSettingsButton.counter > appFPS/16) {
+		if (SensivityDownSettingsButton.wasPressed==true) {
+			SensivityDownSettingsButton.wasPressed = false;
+			ViewSensivity -= 0.05;
+		};
+		SensivityDownSettingsButton.fillColor = SensivityDownSettingsButton.defaultFillColor;
+	};
+	renderButton(SensivityUpSettingsButton);
+	if (isButtonPressed(SensivityUpSettingsButton)) {
+		SensivityUpSettingsButton.fillColor = SensivityUpSettingsButton.pressedFillColor;
+		SensivityUpSettingsButton.counter = 0;
+		SensivityUpSettingsButton.wasPressed = true;
+	}
+	SensivityUpSettingsButton.counter += 1;
+	if (SensivityUpSettingsButton.counter > appFPS/16) {
+		if (SensivityUpSettingsButton.wasPressed==true) {
+			SensivityUpSettingsButton.wasPressed = false;
+			ViewSensivity += 0.05;
+		};
+		SensivityUpSettingsButton.fillColor = SensivityUpSettingsButton.defaultFillColor;
+	};
+	renderButton(SensivitySettingsDisplayButton);
+	TextCopy(SensivitySettingsDisplayButton.text,TextFormat("%.0f%%",ViewSensivity*100));
+	// if (isButtonPressed(SensivitySettingsDisplayButton)) {
+	// 	SensivitySettingsDisplayButton.fillColor = SensivitySettingsDisplayButton.pressedFillColor;
+	// 	SensivitySettingsDisplayButton.counter = 0;
+	// 	SensivitySettingsDisplayButton.wasPressed = true;
+	// }
+	// SensivitySettingsDisplayButton.counter += 1;
+	// if (SensivitySettingsDisplayButton.counter > appFPS/8) {
+	// 	if (SensivitySettingsDisplayButton.wasPressed==true) {
+	// 		SensivitySettingsDisplayButton.wasPressed = false;
+	// 		ViewSensivity += 0.05;
+	// 		;
+	// 	};
+	// 	SensivitySettingsDisplayButton.fillColor = SensivitySettingsDisplayButton.defaultFillColor;
+	// };
+	int textposx = (SensivityUpSettingsButton.x + (SensivityUpSettingsButton.w / 2)) -
+	MeasureText(SensivityUpSettingsButton.text, SensivityUpSettingsButton.textFontSize) / 2;
+	int textposy = (SensivityUpSettingsButton.y + (SensivityUpSettingsButton.h / 2)) -
+	SensivityUpSettingsButton.textFontSize / 2;
+	DrawText(
+		"SENSIVITY", textposx+40,
+		GetScreenHeight() - textposy+2 - SensivityUpSettingsButton.textFontSize,
+		SensivityUpSettingsButton.textFontSize, WHITE
+	);
+}
+
 void processSettingsScreenButtons(void) {
 	processSettingsScreenUpperText();
 	processSettingsScreenFastRunButton();
-	// processSettingsScreenSensivityControls();
+	processSettingsScreenSensivityControls();
 }
