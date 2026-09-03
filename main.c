@@ -148,9 +148,6 @@ int main(void) {
 		// Settings screen
 		if (APPSTATE == SETTINGS_SCREEN) {
 			ClearBackground(DARKGRAY);
-			if (playerFastRun) {
-				DrawText("ON",170,height-39,24,WHITE);
-			};
 			processSettingsScreenButtons();
 			if (IsKeyPressed(KEY_ESCAPE)) APPSTATE = TRANSITION;
 		};

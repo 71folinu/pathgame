@@ -282,6 +282,9 @@ void processSettingsScreenFastRunButton(void) {
 		};
 		FastRunSettingsButton.fillColor = FastRunSettingsButton.defaultFillColor;
 	};
+	if (playerFastRun) {
+		DrawText("ON",170,height-39,24,WHITE);
+	};
 }
 
 void processSettingsScreenSensivityControls(void) {
