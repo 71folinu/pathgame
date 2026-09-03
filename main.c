@@ -7,6 +7,8 @@
 #include <math.h>
 // Global variables
 bool playerFastRun = false;
+bool debug = false;
+bool DebugMouseMoving = false;
 float ViewSensivity = 0.5;
 // Global constants
 const int BannerFontSize = 32;
@@ -115,12 +117,11 @@ int main(void) {
 	for (int i = 0; i < 255; i++) codepoints[96 + i] = 0x400 + i;	// Codepoints for russian
 	Font rusFont = LoadFontEx("font.ttf",12,codepoints,512);
 	// Setup for pathgame
-	bool EnableDrawFPS = true;
 	float playerSpeed = 0;
 	float playerWalkSpeed = 0.1;
 	float playerRunSpeed = 0.2;
-	float playerRotation = 90;
-	float playerTilt = 0;
+	float playerRotation = 200;
+	float playerTilt = 220;
 	float playerRotationSpeed = 8;
 	float playerHeight = 1.4;
 	float renderDist = 512;
@@ -175,8 +176,13 @@ int main(void) {
 			if (IsKeyDown(KEY_L) || IsKeyDown(KEY_RIGHT)) playerRotation -= playerRotationSpeed*ViewSensivity;
 			// Mouse look processing
 			playerRotation -= (float)(GetMouseX()-width/2)/4.0;
+			DebugMouseMoving=false;
 			if ((float)GetMouseX()-(float)width/2.0) {
-				DrawText("MOUSE MOVING",50,50,16,WHITE);
+				DebugMouseMoving=true;
+			};
+			if ((float)GetMouseY()-(float)height/2.0) {
+				DebugMouseMoving=true;
+				// DrawText("MOUSE MOVING",50,50,16,WHITE);
 			};
 			playerTilt -= (float)(GetMouseY()-height/2.0)/4;
 			SetMousePosition(width/2,height/2);
@@ -215,7 +221,11 @@ int main(void) {
 			if (playerCamera.position.z > renderDist/16) {
 				playerCamera.position.z -= (playerWalkSpeed+playerRunSpeed)/2;
 			};
-			if (EnableDrawFPS) {
+			if (debug) {
+				if (DebugMouseMoving) {
+					DrawText("MOUSE MOVING",50,50,16,WHITE);
+				};
+				DebugMouseMoving=false;
 				DrawFPS(10,10);
 			};
 		};
@@ -247,6 +257,12 @@ int main(void) {
 			};
 		};
 		EndDrawing();
+		if (IsKeyPressed(KEY_F1)) {
+			debug=true;
+		};
+		if (IsKeyPressed(KEY_F2)) {
+			debug=false;
+		};
 	};
 	CloseWindow();
 	return 0;
