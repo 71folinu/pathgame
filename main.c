@@ -142,6 +142,7 @@ int main(void) {
 		};
 		// Pathgame
 		if (APPSTATE == PATHGAME) {
+			HideCursor();
 			if (IsKeyPressed(KEY_ESCAPE)) APPSTATE = TRANSITION;
 			if (IsKeyDown(KEY_LEFT_SHIFT)) {
 				if (playerFastRun == true) {
@@ -175,11 +176,10 @@ int main(void) {
 			// Mouse look processing
 			playerRotation -= (GetMouseX()-width/2)/4;
 			playerTilt -= (GetMouseY()-height/2)/4;
-								printf("%f",playerTilt);
 			SetMousePosition(width/2,height/2);
-			playerCamera.target = (Vector3) {	playerCamera.position.x+sin(playerRotation*DEG2RAD),
-								playerHeight,
-								playerCamera.position.z+cos(playerRotation*DEG2RAD)};
+			playerCamera.target = (Vector3) {	playerCamera.position.x+cos(playerTilt*DEG2RAD)*sin(playerRotation*DEG2RAD),
+								playerHeight + sin(playerTilt*DEG2RAD),
+								playerCamera.position.z+cos(playerTilt*DEG2RAD)*cos(playerRotation*DEG2RAD)};
 			// Rendering
 			ClearBackground((Color){0,0,31,255});
 			BeginMode3D(playerCamera);
