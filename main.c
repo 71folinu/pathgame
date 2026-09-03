@@ -174,8 +174,11 @@ int main(void) {
 			if (IsKeyDown(KEY_H) || IsKeyDown(KEY_LEFT)) playerRotation += playerRotationSpeed*ViewSensivity;
 			if (IsKeyDown(KEY_L) || IsKeyDown(KEY_RIGHT)) playerRotation -= playerRotationSpeed*ViewSensivity;
 			// Mouse look processing
-			playerRotation -= (GetMouseX()-width/2)/4;
-			playerTilt -= (GetMouseY()-height/2)/4;
+			playerRotation -= (float)(GetMouseX()-width/2)/4.0;
+			if ((float)GetMouseX()-(float)width/2.0) {
+				DrawText("MOUSE MOVING",50,50,16,WHITE);
+			};
+			playerTilt -= (float)(GetMouseY()-height/2.0)/4;
 			SetMousePosition(width/2,height/2);
 			playerCamera.target = (Vector3) {	playerCamera.position.x+cos(playerTilt*DEG2RAD)*sin(playerRotation*DEG2RAD),
 								playerHeight + sin(playerTilt*DEG2RAD),
