@@ -21,150 +21,6 @@ struct BUTTON {
 	enum APPSTATE_ENUM needsAppstate;
 };
 
-static struct BUTTON mainMenuExitButton = {			.x = 64,
-								.y = 64,
-								.w = 128,
-								.h = 16,
-								.defaultFillColor = {255,255,255,255},
-								.pressedFillColor = {255,0,0,255},
-								.fillColor = {255, 255, 255, 255},
-								.textColor = {0, 0, 0, 255},
-								.text = "EXIT",
-								.textFontSize = 24,
-								.pressed = false,
-								.anchor = LR,
-								.counter = 0,
-								.wasPressed = false,
-								.needsAppstate = MAIN_MENU
-};
-static struct BUTTON planetButton = {				.x = 16,
-								.y = 16,
-								.w = 16,
-								.h = 16,
-								.defaultFillColor = { 85, 85, 85, 255 },
-								.pressedFillColor = { 255, 255, 255, 255 } ,
-								.fillColor = { 85, 85, 85, 255 },
-								.textColor = { 85, 85, 85, 255 },
-								.text = "",
-								.textFontSize = 4,
-								.pressed = false,
-								.anchor = LL,
-								.counter = 0,
-								.wasPressed = false,
-								.needsAppstate = MAIN_MENU
-};
-static struct BUTTON mainMenuBallButton = {			.x = 16,
-								.y = 16,
-								.w = 128,
-								.h = 16,
-								.defaultFillColor = { 127, 127, 127, 255 },
-								.pressedFillColor = { 187, 187, 187, 255 } ,
-								.fillColor = { 127, 127, 127, 255 },
-								.textColor = { 85, 85, 85, 255 },
-								.text = "BALL",
-								.textFontSize = 16,
-								.pressed = false,
-								.anchor = UL,
-								.counter = 0,
-								.wasPressed = false,
-								.needsAppstate = MAIN_MENU
-};
-static struct BUTTON mainMenuPathgameButton = {			.x = 16,
-								.y = 64,
-								.w = 128,
-								.h = 16,
-								.defaultFillColor = { 127, 127, 127, 255 },
-								.pressedFillColor = { 187, 187, 187, 255 } ,
-								.fillColor = { 127, 127, 127, 255 },
-								.textColor = { 85, 85, 85, 255 },
-								.text = "pathgame wip",
-								.textFontSize = 16,
-								.pressed = false,
-								.anchor = UL,
-								.counter = 0,
-								.wasPressed = false,
-								.needsAppstate = MAIN_MENU
-};
-static struct BUTTON SettingsButton = {				.x = 16,
-								.y = 16,
-								.w = 128,
-								.h = 16,
-								.defaultFillColor = { 127, 127, 127, 255 },
-								.pressedFillColor = { 187, 187, 187, 255 } ,
-								.fillColor = { 127, 127, 127, 255 },
-								.textColor = { 85, 85, 85, 255 },
-								.text = "SETTINGS",
-								.textFontSize = 16,
-								.pressed = false,
-								.anchor = UR,
-								.counter = 0,
-								.wasPressed = false,
-								.needsAppstate = MAIN_MENU
-};
-static struct BUTTON FastRunSettingsButton = {			.x = 20,
-								.y = 20,
-								.w = 128,
-								.h = 16,
-								.defaultFillColor = { 127, 127, 127, 255 },
-								.pressedFillColor = { 187, 187, 187, 255 } ,
-								.fillColor = { 127, 127, 127, 255 },
-								.textColor = { 85, 85, 85, 255 },
-								.text = "FAST RUN",
-								.textFontSize = 16,
-								.pressed = false,
-								.anchor = LL,
-								.counter = 0,
-								.wasPressed = false,
-								.needsAppstate = SETTINGS_SCREEN
-};
-static struct BUTTON SensivityUpSettingsButton = {		.x = 128,
-								.y = 80,
-								.w = 20,
-								.h = 16,
-								.defaultFillColor = { 127, 127, 127, 255 },
-								.pressedFillColor = { 187, 187, 187, 255 } ,
-								.fillColor = { 127, 127, 127, 255 },
-								.textColor = { 85, 85, 85, 255 },
-								.text = "+",
-								.textFontSize = 24,
-								.pressed = false,
-								.anchor = LL,
-								.counter = 0,
-								.wasPressed = false,
-								.needsAppstate = SETTINGS_SCREEN
-};
-static struct BUTTON SensivityDownSettingsButton = {		.x = 20,
-								.y = 80,
-								.w = 20,
-								.h = 16,
-								.defaultFillColor = { 127, 127, 127, 255 },
-								.pressedFillColor = { 187, 187, 187, 255 } ,
-								.fillColor = { 127, 127, 127, 255 },
-								.textColor = { 85, 85, 85, 255 },
-								.text = "-",
-								.textFontSize = 24,
-								.pressed = false,
-								.anchor = LL,
-								.counter = 0,
-								.wasPressed = false,
-								.needsAppstate = SETTINGS_SCREEN
-};
-static struct BUTTON SensivitySettingsDisplayButton = {		.x = 60,
-								.y = 80,
-								.w = 48,
-								.h = 16,
-								.defaultFillColor = { 127, 127, 127, 255 },
-								.pressedFillColor = { 187, 187, 187, 255 } ,
-								.fillColor = { 127, 127, 127, 255 },
-								.textColor = { 85, 85, 85, 255 },
-								.text = "100%",
-								.textFontSize = 16,
-								.pressed = false,
-								.anchor = LL,
-								.counter = 0,
-								.wasPressed = false,
-								.needsAppstate = SETTINGS_SCREEN
-};
 
 bool isMouseOverButton(struct BUTTON button) {
 	int x0 = 0;
@@ -267,6 +123,22 @@ void processSettingsScreenUpperText(void) {
 }
 
 void processSettingsScreenFastRunButton(void) {
+	static struct BUTTON FastRunSettingsButton = {			.x = 20,
+									.y = 20,
+									.w = 128,
+									.h = 16,
+									.defaultFillColor = { 127, 127, 127, 255 },
+									.pressedFillColor = { 187, 187, 187, 255 } ,
+									.fillColor = { 127, 127, 127, 255 },
+									.textColor = { 85, 85, 85, 255 },
+									.text = "FAST RUN",
+									.textFontSize = 16,
+									.pressed = false,
+									.anchor = LL,
+									.counter = 0,
+									.wasPressed = false,
+									.needsAppstate = SETTINGS_SCREEN
+	};
 	renderButton(FastRunSettingsButton);
 	if (isButtonPressed(FastRunSettingsButton)) {
 		FastRunSettingsButton.fillColor = FastRunSettingsButton.pressedFillColor;
@@ -287,6 +159,54 @@ void processSettingsScreenFastRunButton(void) {
 }
 
 void processSettingsScreenSensivityControls(void) {
+	static struct BUTTON SensivityUpSettingsButton = {		.x = 128,
+									.y = 80,
+									.w = 20,
+									.h = 16,
+									.defaultFillColor = { 127, 127, 127, 255 },
+									.pressedFillColor = { 187, 187, 187, 255 } ,
+									.fillColor = { 127, 127, 127, 255 },
+									.textColor = { 85, 85, 85, 255 },
+									.text = "+",
+									.textFontSize = 24,
+									.pressed = false,
+									.anchor = LL,
+									.counter = 0,
+									.wasPressed = false,
+									.needsAppstate = SETTINGS_SCREEN
+	};
+	static struct BUTTON SensivityDownSettingsButton = {		.x = 20,
+									.y = 80,
+									.w = 20,
+									.h = 16,
+									.defaultFillColor = { 127, 127, 127, 255 },
+									.pressedFillColor = { 187, 187, 187, 255 } ,
+									.fillColor = { 127, 127, 127, 255 },
+									.textColor = { 85, 85, 85, 255 },
+									.text = "-",
+									.textFontSize = 24,
+									.pressed = false,
+									.anchor = LL,
+									.counter = 0,
+									.wasPressed = false,
+									.needsAppstate = SETTINGS_SCREEN
+	};
+	static struct BUTTON SensivitySettingsDisplayButton = {		.x = 60,
+									.y = 80,
+									.w = 48,
+									.h = 16,
+									.defaultFillColor = { 127, 127, 127, 255 },
+									.pressedFillColor = { 187, 187, 187, 255 } ,
+									.fillColor = { 127, 127, 127, 255 },
+									.textColor = { 85, 85, 85, 255 },
+									.text = "100%",
+									.textFontSize = 16,
+									.pressed = false,
+									.anchor = LL,
+									.counter = 0,
+									.wasPressed = false,
+									.needsAppstate = SETTINGS_SCREEN
+	};
 	renderButton(SensivityDownSettingsButton);
 	if (isButtonPressed(SensivityDownSettingsButton)) {
 		SensivityDownSettingsButton.fillColor = SensivityDownSettingsButton.pressedFillColor;
@@ -348,6 +268,22 @@ void processSettingsScreenButtons(void) {
 }
 
 void processMainMenuExitButton(void) {
+	static struct BUTTON mainMenuExitButton = {			.x = 64,
+									.y = 64,
+									.w = 128,
+									.h = 16,
+									.defaultFillColor = {255,255,255,255},
+									.pressedFillColor = {255,0,0,255},
+									.fillColor = {255, 255, 255, 255},
+									.textColor = {0, 0, 0, 255},
+									.text = "EXIT",
+									.textFontSize = 24,
+									.pressed = false,
+									.anchor = LR,
+									.counter = 0,
+									.wasPressed = false,
+									.needsAppstate = MAIN_MENU
+	};
 	renderButton(mainMenuExitButton);
 	if (isButtonPressed(mainMenuExitButton)) {
 		mainMenuExitButton.fillColor = mainMenuExitButton.pressedFillColor;
@@ -367,6 +303,22 @@ void processMainMenuExitButton(void) {
 }
 
 void processMainMenuPlanetButton(void) {
+	static struct BUTTON planetButton = {				.x = 16,
+									.y = 16,
+									.w = 16,
+									.h = 16,
+									.defaultFillColor = { 85, 85, 85, 255 },
+									.pressedFillColor = { 255, 255, 255, 255 } ,
+									.fillColor = { 85, 85, 85, 255 },
+									.textColor = { 85, 85, 85, 255 },
+									.text = "",
+									.textFontSize = 4,
+									.pressed = false,
+									.anchor = LL,
+									.counter = 0,
+									.wasPressed = false,
+									.needsAppstate = MAIN_MENU
+	};
 	renderButton(planetButton);
 	if (isButtonPressed(planetButton)) {
 		planetButton.fillColor = planetButton.pressedFillColor;
@@ -385,6 +337,22 @@ void processMainMenuPlanetButton(void) {
 }
 
 void processMainMenuBallButton(void) {
+	static struct BUTTON mainMenuBallButton = {			.x = 16,
+									.y = 16,
+									.w = 128,
+									.h = 16,
+									.defaultFillColor = { 127, 127, 127, 255 },
+									.pressedFillColor = { 187, 187, 187, 255 } ,
+									.fillColor = { 127, 127, 127, 255 },
+									.textColor = { 85, 85, 85, 255 },
+									.text = "BALL",
+									.textFontSize = 16,
+									.pressed = false,
+									.anchor = UL,
+									.counter = 0,
+									.wasPressed = false,
+									.needsAppstate = MAIN_MENU
+	};
 	renderButton(mainMenuBallButton);
 	if (isButtonPressed(mainMenuBallButton)) {
 		mainMenuBallButton.fillColor = mainMenuBallButton.pressedFillColor;
@@ -402,6 +370,22 @@ void processMainMenuBallButton(void) {
 }
 
 void processMainMenuPathgameButton(void) {
+	static struct BUTTON mainMenuPathgameButton = {			.x = 16,
+									.y = 64,
+									.w = 128,
+									.h = 16,
+									.defaultFillColor = { 127, 127, 127, 255 },
+									.pressedFillColor = { 187, 187, 187, 255 } ,
+									.fillColor = { 127, 127, 127, 255 },
+									.textColor = { 85, 85, 85, 255 },
+									.text = "pathgame wip",
+									.textFontSize = 16,
+									.pressed = false,
+									.anchor = UL,
+									.counter = 0,
+									.wasPressed = false,
+									.needsAppstate = MAIN_MENU
+	};
 	renderButton(mainMenuPathgameButton);
 	if (isButtonPressed(mainMenuPathgameButton)) {
 		mainMenuPathgameButton.fillColor = mainMenuPathgameButton.pressedFillColor;
@@ -420,6 +404,22 @@ void processMainMenuPathgameButton(void) {
 }
 
 void processMainMenuSettingsButton(void) {
+	static struct BUTTON SettingsButton = {				.x = 16,
+									.y = 16,
+									.w = 128,
+									.h = 16,
+									.defaultFillColor = { 127, 127, 127, 255 },
+									.pressedFillColor = { 187, 187, 187, 255 } ,
+									.fillColor = { 127, 127, 127, 255 },
+									.textColor = { 85, 85, 85, 255 },
+									.text = "SETTINGS",
+									.textFontSize = 16,
+									.pressed = false,
+									.anchor = UR,
+									.counter = 0,
+									.wasPressed = false,
+									.needsAppstate = MAIN_MENU
+	};
 	renderButton(SettingsButton);
 	if (isButtonPressed(SettingsButton)) {
 		SettingsButton.fillColor = SettingsButton.pressedFillColor;
