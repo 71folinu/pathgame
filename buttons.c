@@ -29,7 +29,7 @@ struct BUTTON mainMenuExitButton = {		.x = 64,
 						.pressedFillColor = {255,0,0,255},
 						.fillColor = {255, 255, 255, 255},
 						.textColor = {0, 0, 0, 255},
-						.text = "exit app",
+						.text = "EXIT",
 						.textFontSize = 24,
 						.pressed = false,
 						.anchor = LR,
@@ -54,7 +54,7 @@ struct BUTTON planetButton = {			.x = 16,
 						.needsAppstate = MAIN_MENU
 };
 
-struct BUTTON physicsTestButton = {		.x = 16,
+struct BUTTON mainMenuBallButton = {		.x = 16,
 						.y = 16,
 						.w = 128,
 						.h = 16,
@@ -62,7 +62,7 @@ struct BUTTON physicsTestButton = {		.x = 16,
 						.pressedFillColor = { 187, 187, 187, 255 } ,
 						.fillColor = { 127, 127, 127, 255 },
 						.textColor = { 85, 85, 85, 255 },
-						.text = "physics test",
+						.text = "BALL",
 						.textFontSize = 16,
 						.pressed = false,
 						.anchor = UL,
@@ -70,7 +70,7 @@ struct BUTTON physicsTestButton = {		.x = 16,
 						.wasPressed = false,
 						.needsAppstate = MAIN_MENU
 };
-struct BUTTON pathgameButton = {		.x = 16,
+struct BUTTON mainMenuPathgameButton = {		.x = 16,
 						.y = 64,
 						.w = 128,
 						.h = 16,
@@ -261,96 +261,6 @@ bool isButtonPressed(struct BUTTON button) {
 	};
 }
 
-void processButtons(void) {
-		if (APPSTATE == mainMenuExitButton.needsAppstate) {
-			renderButton(mainMenuExitButton);
-			if (isButtonPressed(mainMenuExitButton)) {
-				mainMenuExitButton.fillColor = mainMenuExitButton.pressedFillColor;
-				strcpy(mainMenuExitButton.text, "FUCK YOU");
-				mainMenuExitButton.counter = 0;
-				mainMenuExitButton.wasPressed = true;
-			};
-			mainMenuExitButton.counter += 1;
-			if (mainMenuExitButton.counter > appFPS/2) {
-				if (mainMenuExitButton.wasPressed==true) {
-					mainMenuExitButton.wasPressed = false;
-					APPSTATE = CLOSING;
-				};
-				mainMenuExitButton.fillColor = mainMenuExitButton.defaultFillColor;
-				strcpy(mainMenuExitButton.text, "exit app");
-			};
-		};
-		if (APPSTATE == planetButton.needsAppstate) {
-			renderButton(planetButton);
-			if (isButtonPressed(planetButton)) {
-				planetButton.fillColor = planetButton.pressedFillColor;
-				planetButton.counter = 0;
-				planetButton.wasPressed = true;
-			}
-			planetButton.counter += 1;
-			if (planetButton.counter > appFPS/2) {
-				if (planetButton.wasPressed==true) {
-					planetButton.wasPressed = false;
-					APPSTATE = PLANET;
-					;
-				};
-				planetButton.fillColor = planetButton.defaultFillColor;
-			};
-		};
-		if (APPSTATE == physicsTestButton.needsAppstate) {
-			renderButton(physicsTestButton);
-			if (isButtonPressed(physicsTestButton)) {
-				physicsTestButton.fillColor = physicsTestButton.pressedFillColor;
-				physicsTestButton.counter = 0;
-				physicsTestButton.wasPressed = true;
-			}
-			physicsTestButton.counter += 1;
-			if (physicsTestButton.counter > appFPS/2) {
-				if (physicsTestButton.wasPressed==true) {
-					physicsTestButton.wasPressed = false;
-					APPSTATE = PHYSICS_TEST;
-					;
-				};
-				physicsTestButton.fillColor = physicsTestButton.defaultFillColor;
-			};
-		};
-		if (APPSTATE == pathgameButton.needsAppstate) {
-			renderButton(pathgameButton);
-			if (isButtonPressed(pathgameButton)) {
-				pathgameButton.fillColor = pathgameButton.pressedFillColor;
-				pathgameButton.counter = 0;
-				pathgameButton.wasPressed = true;
-			}
-			pathgameButton.counter += 1;
-			if (pathgameButton.counter > appFPS/2) {
-				if (pathgameButton.wasPressed==true) {
-					pathgameButton.wasPressed = false;
-					APPSTATE = PATHGAME;
-					;
-				};
-				pathgameButton.fillColor = pathgameButton.defaultFillColor;
-			};
-		};
-		if (APPSTATE == SettingsButton.needsAppstate) {
-			renderButton(SettingsButton);
-			if (isButtonPressed(SettingsButton)) {
-				SettingsButton.fillColor = SettingsButton.pressedFillColor;
-				SettingsButton.counter = 0;
-				SettingsButton.wasPressed = true;
-			}
-			SettingsButton.counter += 1;
-			if (SettingsButton.counter > appFPS/2) {
-				if (SettingsButton.wasPressed==true) {
-					FastRunSettingsButtonAppearCounter = 0;
-					SettingsButton.wasPressed = false;
-					APPSTATE = SETTINGS_SCREEN;
-					;
-				};
-				SettingsButton.fillColor = SettingsButton.defaultFillColor;
-			};
-		};
-}
-
 void processSettingsScreenUpperText(void) {
 	DrawText("SETTINGS", 20, 20, 32, WHITE);
 	DrawText(TextFormat("Current window width - %i",width), 20, 80, 24, WHITE);
@@ -433,4 +343,103 @@ void processSettingsScreenButtons(void) {
 	processSettingsScreenUpperText();
 	processSettingsScreenFastRunButton();
 	processSettingsScreenSensivityControls();
+}
+
+void processMainMenuExitButton(void) {
+	renderButton(mainMenuExitButton);
+	if (isButtonPressed(mainMenuExitButton)) {
+		mainMenuExitButton.fillColor = mainMenuExitButton.pressedFillColor;
+		strcpy(mainMenuExitButton.text, "GOODBYE");
+		mainMenuExitButton.counter = 0;
+		mainMenuExitButton.wasPressed = true;
+	};
+	mainMenuExitButton.counter += 1;
+	if (mainMenuExitButton.counter > appFPS/4) {
+		if (mainMenuExitButton.wasPressed==true) {
+			mainMenuExitButton.wasPressed = false;
+			APPSTATE = CLOSING;
+		};
+		mainMenuExitButton.fillColor = mainMenuExitButton.defaultFillColor;
+		strcpy(mainMenuExitButton.text, "EXIT");
+	};
+}
+
+void processMainMenuPlanetButton(void) {
+	renderButton(planetButton);
+	if (isButtonPressed(planetButton)) {
+		planetButton.fillColor = planetButton.pressedFillColor;
+		planetButton.counter = 0;
+		planetButton.wasPressed = true;
+	}
+	planetButton.counter += 1;
+	if (planetButton.counter > appFPS/2) {
+		if (planetButton.wasPressed==true) {
+			planetButton.wasPressed = false;
+			APPSTATE = PLANET;
+			;
+		};
+		planetButton.fillColor = planetButton.defaultFillColor;
+	};
+}
+
+void processMainMenuBallButton(void) {
+	renderButton(mainMenuBallButton);
+	if (isButtonPressed(mainMenuBallButton)) {
+		mainMenuBallButton.fillColor = mainMenuBallButton.pressedFillColor;
+		mainMenuBallButton.counter = 0;
+		mainMenuBallButton.wasPressed = true;
+	}
+	mainMenuBallButton.counter += 1;
+	if (mainMenuBallButton.counter > appFPS/4) {
+		if (mainMenuBallButton.wasPressed==true) {
+			mainMenuBallButton.wasPressed = false;
+			APPSTATE = PHYSICS_TEST;
+		};
+		mainMenuBallButton.fillColor = mainMenuBallButton.defaultFillColor;
+	};
+}
+
+void processMainMenuPathgameButton(void) {
+	renderButton(mainMenuPathgameButton);
+	if (isButtonPressed(mainMenuPathgameButton)) {
+		mainMenuPathgameButton.fillColor = mainMenuPathgameButton.pressedFillColor;
+		mainMenuPathgameButton.counter = 0;
+		mainMenuPathgameButton.wasPressed = true;
+	}
+	mainMenuPathgameButton.counter += 1;
+	if (mainMenuPathgameButton.counter > appFPS/4) {
+		if (mainMenuPathgameButton.wasPressed==true) {
+			mainMenuPathgameButton.wasPressed = false;
+			APPSTATE = PATHGAME;
+			;
+		};
+		mainMenuPathgameButton.fillColor = mainMenuPathgameButton.defaultFillColor;
+	};
+}
+
+void processMainMenuSettingsButton(void) {
+	renderButton(SettingsButton);
+	if (isButtonPressed(SettingsButton)) {
+		SettingsButton.fillColor = SettingsButton.pressedFillColor;
+		SettingsButton.counter = 0;
+		SettingsButton.wasPressed = true;
+	}
+	SettingsButton.counter += 1;
+	if (SettingsButton.counter > appFPS/4) {
+		if (SettingsButton.wasPressed==true) {
+			FastRunSettingsButtonAppearCounter = 0;
+			SettingsButton.wasPressed = false;
+			APPSTATE = SETTINGS_SCREEN;
+			;
+		};
+		SettingsButton.fillColor = SettingsButton.defaultFillColor;
+	};
+}
+
+void processMainMenuButtons(void) {
+	processMainMenuExitButton();
+	processMainMenuPlanetButton();
+	processMainMenuBallButton();
+	processMainMenuPathgameButton();
+	processMainMenuSettingsButton();
 }

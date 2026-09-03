@@ -151,7 +151,6 @@ int main(void) {
 			if (playerFastRun) {
 				DrawText("ON",170,height-39,24,WHITE);
 			};
-			// processButtons();
 			processSettingsScreenButtons();
 			if (IsKeyPressed(KEY_ESCAPE)) APPSTATE = TRANSITION;
 		};
@@ -239,7 +238,7 @@ int main(void) {
 		// Main menu
 		if (APPSTATE == MAIN_MENU) {
 			ClearBackground(DARKGRAY);
-			processButtons();
+			processMainMenuButtons();
 			if (IsKeyPressed(KEY_ESCAPE)) APPSTATE = CLOSING;
 		};
 
