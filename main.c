@@ -144,7 +144,7 @@ int main(void) {
 		// Pathgame
 		if (APPSTATE == PATHGAME) {
 			HideCursor();
-			if (IsKeyPressed(KEY_ESCAPE)) APPSTATE = TRANSITION;
+			if (IsKeyPressed(KEY_ESCAPE)) {APPSTATE = TRANSITION;ShowCursor();};
 			if (IsKeyDown(KEY_LEFT_SHIFT)) {
 				if (playerFastRun == true) {
 					playerSpeed = playerRunSpeed*5;
@@ -202,11 +202,11 @@ int main(void) {
 				// Dirt path
 				DrawCube((Vector3){-renderDist/4,0,0},renderDist/2,0.02,3,(Color){ 40, 20, 20, 255 });
 				// Modelled pole
-				DrawModel(PoleModel,(Vector3){8,0,0},1.0,WHITE);
+				
 				// Streetlights
-				for (int i = 0; i < 32-6; i++) {
+				for (int i = 0; i < 20; i++) {
 					if (i == 6) {continue;};
-					DrawStreetlight((Vector3){i*10+16,0,1.5});
+					DrawModel(PoleModel,(Vector3){8+(float)i*12,0,0},1.0,WHITE);
 				};
 				// Grid for debug
 				// DrawGrid(renderDist,1);
