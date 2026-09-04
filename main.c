@@ -132,6 +132,7 @@ int main(void) {
 	playerCamera.fovy = 70.0f;					// Camera field-of-view Y
 	playerCamera.projection = CAMERA_PERSPECTIVE;			// Camera mode type
 	Model PoleModel = LoadModel("pole.glb");
+	Model TreeModel = LoadModel("tree.glb");
 	#include "physicsTestVars.c"
 	while (APPSTATE != CLOSING) {
 		BeginDrawing();
@@ -207,6 +208,7 @@ int main(void) {
 				for (int i = 0; i < 20; i++) {
 					if (i == 6) {continue;};
 					DrawModel(PoleModel,(Vector3){8+(float)i*12,0,0},1.0,WHITE);
+					DrawModel(TreeModel,(Vector3){8+(float)i*12,4,-4},1.0,WHITE);
 				};
 				// Grid for debug
 				// DrawGrid(renderDist,1);
