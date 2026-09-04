@@ -9,6 +9,7 @@
 bool playerFastRun = false;
 bool debug = false;
 bool DebugMouseMoving = false;
+bool DebugCollision = false;
 float ViewSensivity = 0.5;
 // Global constants
 const int BannerFontSize = 32;
@@ -172,6 +173,11 @@ int main(void) {
 				playerCamera.position.z -= sin(playerRotation*DEG2RAD)*playerSpeed;
 				playerCamera.position.x += cos(playerRotation*DEG2RAD)*playerSpeed;
 			};
+			// TODO Player collision processing
+			if (playerCamera.position.x > 10) {
+				DebugCollision = true;
+				playerCamera.position.x = 10;
+			};
 			// Simple player rotation processing
 			if (IsKeyDown(KEY_H) || IsKeyDown(KEY_LEFT)) playerRotation += playerRotationSpeed*ViewSensivity;
 			if (IsKeyDown(KEY_L) || IsKeyDown(KEY_RIGHT)) playerRotation -= playerRotationSpeed*ViewSensivity;
@@ -225,9 +231,13 @@ int main(void) {
 			};
 			if (debug) {
 				if (DebugMouseMoving) {
-					DrawText("MOUSE MOVING",50,50,16,WHITE);
+					DrawText("MOUSE MOVING",10,33,16,WHITE);
 				};
 				DebugMouseMoving=false;
+				if (DebugCollision) {
+					DrawText("COLLISION",10,53,16,WHITE);
+				};
+				DebugCollision = false;
 				DrawFPS(10,10);
 			};
 		};
