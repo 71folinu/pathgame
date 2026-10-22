@@ -15,6 +15,7 @@ float ViewSensivity = 0.5;
 const int BannerFontSize = 32;
 const int appFPS = 40;
 const int windowBorder = 32;
+const int NumberOfStreetlights = 20;
 // Global enums
 enum BUTTON_ANCHOR { UL, UR, LL, LR };
 enum APPSTATE_ENUM { CLOSING, LOADING_APP, MAIN_MENU, PLANET, PHYSICS_TEST, TRANSITION, PATHGAME, SETTINGS_SCREEN };
@@ -101,6 +102,11 @@ void DrawStreetlight(Vector3 BasePos) {
 		LitPathColor
 	);
 }
+void PlayerCollideWith(Camera3D* player, float x, float z, float w) {
+	if (PlayerX < x-w and PlayerZ < z-w and PlayerZ > z+w) {
+		playerCamera.position.x = x-w;
+	};
+}
 // Entrypoint
 int main(void) {
 	printf("ENTERED MAIN\n");
@@ -174,10 +180,16 @@ int main(void) {
 				playerCamera.position.x += cos(playerRotation*DEG2RAD)*playerSpeed;
 			};
 			// TODO Player collision processing
-			if (playerCamera.position.x > 10) {
-				DebugCollision = true;
-				playerCamera.position.x = 10;
-			};
+			PlayerCollideWith(10,0,1);
+			// if (playerCamera.position.x > 10) {
+			// 	DebugCollision = true;
+			// 	playerCamera.position.x = 10;
+			// };
+			// for (int i = 0; i < NumberOfStreetlights; i++) {
+			// 	if (i == 6) {continue;};
+			// 	DrawModel(PoleModel,(Vector3){8+(float)i*12,0,0},1.0,WHITE);
+			// 	DrawModel(TreeModel,(Vector3){8+(float)i*12,4,-4},1.0,WHITE);
+			// };
 			// Simple player rotation processing
 			if (IsKeyDown(KEY_H) || IsKeyDown(KEY_LEFT)) playerRotation += playerRotationSpeed*ViewSensivity;
 			if (IsKeyDown(KEY_L) || IsKeyDown(KEY_RIGHT)) playerRotation -= playerRotationSpeed*ViewSensivity;
@@ -211,7 +223,7 @@ int main(void) {
 				// Modelled pole
 				
 				// Streetlights
-				for (int i = 0; i < 20; i++) {
+				for (int i = 0; i < NumberOfStreetlights; i++) {
 					if (i == 6) {continue;};
 					DrawModel(PoleModel,(Vector3){8+(float)i*12,0,0},1.0,WHITE);
 					DrawModel(TreeModel,(Vector3){8+(float)i*12,4,-4},1.0,WHITE);
