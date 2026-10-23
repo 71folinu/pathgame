@@ -102,11 +102,11 @@ void DrawStreetlight(Vector3 BasePos) {
 		LitPathColor
 	);
 }
-// void PlayerCollideWith(Camera3D* player, float x, float z, float w) {
-// 	if (PlayerX < x-w and PlayerZ < z-w and PlayerZ > z+w) {
-// 		playerCamera.position.x = x-w;
-// 	};
-// }
+void PlayerCollideWith(Camera3D* player, float x, float z, float w) {
+	if (PlayerX < x-w and PlayerZ < z-w and PlayerZ > z+w) {
+		playerCamera.position.x = x-w;
+	};
+}
 // Entrypoint
 int main(void) {
 	printf("ENTERED MAIN\n");
@@ -180,7 +180,7 @@ int main(void) {
 				playerCamera.position.x += cos(playerRotation*DEG2RAD)*playerSpeed;
 			};
 			// TODO Player collision processing
-			// PlayerCollideWith(10,0,1);
+			PlayerCollideWith(10,0,1);
 			// if (playerCamera.position.x > 10) {
 			// 	DebugCollision = true;
 			// 	playerCamera.position.x = 10;
